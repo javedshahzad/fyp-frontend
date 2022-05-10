@@ -51,6 +51,16 @@
               ></ion-input>
             </ion-item>
             <ion-item>
+              <ion-label position="floating">Retypr Password</ion-label>
+              <ion-input
+                type="password"
+                ngModel
+                name="re_passcode"
+                required
+                minlength="6"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-label position="floating">Phone Number</ion-label>
               <ion-input
                 type="tel"
@@ -63,11 +73,11 @@
             </ion-item>
             <ion-item>
               <ion-label position="floating">Major</ion-label>
-              <ion-select required name="major" [(ngModel)]="user.majorID">
-                <ion-select-option  value={major.majorID} *ngFor="let major of majors">{{major.majorName}}</ion-select-option>
+              <ion-select required name="major" [(ngModel)]="user.majorID" >
+                <ion-select-option  value={{major.majorID}} *ngFor="let major of majors">{{major.majorName}}</ion-select-option>
               </ion-select>
             </ion-item>
-            <ion-item>
+            <!-- <ion-item>
               <ion-label position="floating">Supervisor</ion-label>
               <ion-select required name="supervisor">
                 <ion-select-option></ion-select-option>
@@ -139,7 +149,7 @@
                 minlength="6"
                 #description="ngModel"
               ></ion-input>
-            </ion-item>
+            </ion-item> -->
           </ion-list>
         </ion-col>
       </ion-row>

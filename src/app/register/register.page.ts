@@ -17,7 +17,7 @@ import { Major } from '../model/major.model';
 export class RegisterPage implements OnInit {
   isLoading = false;
   isLogin = true;
-  majors
+  majors;
   major;
   registerData = [];
   user: User = new User();
@@ -40,7 +40,27 @@ export class RegisterPage implements OnInit {
         console.log(this.majors);
       }, error => console.log(error));
 
+  //     this.userForm = formBuilder.group({
 
+  //       email: [''],
+  //       password: [''],
+  //       confirmPassword: ['', Validators.required],
+  //     }, {validator: this.matchingPasswords('passcode', 're_passcode')});
+
+
+  // matchingPasswords(passcode: string, re_passcode: string) {
+  //     // TODO maybe use this https://github.com/yuyang041060120/ng2-validation#notequalto-1
+  //     return (form: NgForm): {[key: string]: any} => {
+  //       let password = form.value.passcode;
+  //       let confirmPassword = form.value.re_passcode;
+
+  //       if (password.value !== confirmPassword.value) {
+  //         return {
+  //           mismatchedPasswords: true
+  //         };
+  //       }
+  //     }
+  //   }
   }
 
   // authenticate(profilename: string, username: string,
