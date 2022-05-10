@@ -1,15 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
+
+import { Platform } from '@ionic/angular';
+
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
 
-  beforeEach(waitForAsync(() => {
+
+  beforeEach(async(() => {
 
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        { provide: Platform},
+      ],
     }).compileComponents();
   }));
 
@@ -18,6 +25,10 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
+
+  it('should initialize the app', async () => {
+  });
+
   // TODO: add more tests!
 
 });

@@ -1,0 +1,174 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input
+                type="name"
+                ngModel
+                name="profileName"
+                required
+                [(ngModel)]="user.profileName"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Matrics No.</ion-label>
+              <ion-input
+                ngModel
+                name="userName"
+                required
+                [(ngModel)]="user.userName"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">E-Mail</ion-label>
+              <ion-input
+                type="email"
+                ngModel
+                name="email"
+                required
+                [(ngModel)]="user.email"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input
+                type="password"
+                ngModel
+                name="passcode"
+                required
+                [(ngModel)]="user.passcode"
+                minlength="6"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Phone Number</ion-label>
+              <ion-input
+                type="tel"
+                ngModel
+                name="phoneNum"
+                required
+                [(ngModel)]="user.phoneNum"
+                maxlength="11"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Major</ion-label>
+              <ion-select required name="major" [(ngModel)]="user.majorID">
+                <ion-select-option  value={major.majorID} *ngFor="let major of majors">{{major.majorName}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Supervisor</ion-label>
+              <ion-select required name="supervisor">
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Co-supervisor</ion-label>
+              <ion-select name="cosupervisor">
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Topic Type</ion-label>
+              <ion-select required name="topicType">
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Title</ion-label>
+              <ion-input
+                ngModel
+                name="title"
+                required
+                #titleCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Basic Skills</ion-label>
+              <ion-input
+                ngModel
+                name="skill"
+                required
+                #skillCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Problem Statement</ion-label>
+              <ion-input
+                ngModel
+                name="problemstmt"
+                required
+                #problemstmtCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Objective</ion-label>
+              <ion-input
+                ngModel
+                name="objective"
+                required
+                #objectiveCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Project Outcome</ion-label>
+              <ion-input
+                ngModel
+                name="outcome"
+                required
+                #outcomeCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Project Description</ion-label>
+              <ion-input
+                ngModel
+                name="description"
+                required
+                minlength="6"
+                #description="ngModel"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            type="button"
+            color="primary"
+            fill="clear"
+            expand="block"
+            [routerLink]="['/login']"
+          >
+            Switch to Login
+          </ion-button>
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="block"
+
+          >
+           Register
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <!-- <div class="ion-text-center">
+    <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>
+  </div> -->
+</ion-content>
+
