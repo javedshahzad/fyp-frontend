@@ -1,9 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 export interface User {
   userName: string;
   userGroupID: number;
+  profileName: string;
+  accountID: string;
+  majorID: string;
+  majorName: string;
+  phoneNum: string;
+  email: string;
 }
 
 @Injectable()
@@ -11,53 +18,84 @@ export
  class AuthProvider{
   currentUser: User;
 
-  constructor(public http: HttpClient){
+  constructor(public http: HttpClient,
+    private nav:NavController
+    ){
 
   }
 
-  login(userName: string, passcode: string): Promise<boolean>{
+
+  login(id,userName,profileName,accountID,majorID,majorName,phoneNum,email): Promise<boolean>{
   return new Promise((resolve, reject)=>{
-    if(userName === 'admin' && passcode ==='admin'){
+    if(id ==='0'){
       this.currentUser={
         userName,
-        userGroupID: 0
+        userGroupID: 0,
+        profileName,
+        accountID,
+        majorID,
+        majorName,
+        phoneNum,
+        email,
       };
       resolve(true);
-    } else if(userName === 'student' && passcode === 'student'){
+      this.nav.navigateForward('admin');
+    } else if(id === '1'){
       this.currentUser={
         userName,
-        userGroupID: 1
+        userGroupID: 1,
+        profileName,
+        accountID,
+        majorID,
+        majorName,
+        phoneNum,
+        email,
       };
       resolve(true);
-    } else if(userName === 'student' && passcode === 'student'){
+      this.nav.navigateForward('lecturer');
+    } else if(id === '2'){
       this.currentUser={
         userName,
-        userGroupID: 1
+        userGroupID: 2,
+        profileName,
+        accountID,
+        majorID,
+        majorName,
+        phoneNum,
+        email,
       };
       resolve(true);
+      this.nav.navigateForward('student');
     } else {
       resolve(false);
     }
+    console.log(this.currentUser);
   });
   }
+  loginData(url, data) {
+    return this.http.post(url, data);
+  }
+
 
   isLoggedIn(){
-    return this.currentUser !=null;
+    return localStorage.getItem('userGroupID') !=null;
   }
 
   logout(){
     this.currentUser = null;
+    localStorage.clear();
+    this.nav.navigateBack("login");
   }
 
   isAdmin(){
-    return this.currentUser.userGroupID ===0;
+    return localStorage.getItem('userGroupID') == '0';
   }
 
   isLecturer(){
-    return this.currentUser.userGroupID ===1;
+    return localStorage.getItem('userGroupID') =='1';
   }
 
   isStudent(){
-    return this.currentUser.userGroupID ===2;
+    return localStorage.getItem('userGroupID') =='2';
   }
  }

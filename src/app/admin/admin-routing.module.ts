@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminPage } from './admin.page';
-import { ManageAccountComponent } from './manage-account/manage-account.component';
+
 
 const routes: Routes = [
   {
@@ -10,8 +10,8 @@ const routes: Routes = [
     component: AdminPage
   },
   {
-    path:'manage_account',
-    component: ManageAccountComponent
+    path: 'manage-account',
+    loadChildren: () => import('./manage-account/manage-account.module').then( m => m.ManageAccountPageModule)
   }
 ];
 

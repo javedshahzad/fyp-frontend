@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Plugin } from '@capacitor/core';
-import { environment } from '../../environments/environment';
+
 
 interface AuthResponseData {
   kind: string;

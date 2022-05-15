@@ -5,6 +5,7 @@ import { LoadingController, AlertController, NavController } from '@ionic/angula
 
 import { AuthService } from './auth.service';
 import { AuthProvider } from 'src/providers/auth/auth';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,9 +17,10 @@ export class AuthPage implements OnInit {
   isLogin = true;
 
   user = {
-    userName:'admin',
-    passcode: 'admin',
+    userName:'',
+    passcode: '',
   };
+  userData: any;
 
   constructor(
     private authService: AuthService,
@@ -27,54 +29,68 @@ export class AuthPage implements OnInit {
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     private authProvider: AuthProvider,
+    private api:ApiService
   ) {}
 
   ngOnInit() {}
 
-  authenticate(username: string, password: string) {
-    this.isLoading = true;
-    this.authService.login();
-    this.loadingCtrl
-      .create({ keyboardClose: true, message: 'Logging in...' })
-      .then(loadingEl => {
-        loadingEl.present();
+  // authenticate(username: string, password: string) {
+  //   this.isLoading = true;
+  //   this.authService.login();
+  //   this.loadingCtrl
+  //     .create({ keyboardClose: true, message: 'Logging in...' })
+  //     .then(loadingEl => {
+  //       loadingEl.present();
 
-            // this.showAlert(message);
-          }
-        );
-  }
+  //           // this.showAlert(message);
+  //         }
+  //       );
+  // }
 
 
 
   onSubmit(form: NgForm) {
-  //   if (!form.valid) {
-  //     return;
-  //   }
-  //   const username = form.value.username;
-  //   const password = form.value.password;
+ console.log(this.user);
 
-  //   this.authenticate(username, password);
-  // }
+ const formData =new FormData();
+ formData.append('userName', this.user.userName);
+ formData.append('passcode', this.user.passcode);
+ this.authProvider.loginData('https://fypmanagementbackend.in/AccountAPI/login.php', formData).subscribe((res: any) => {
+   this.userData=res;
+     console.log(res);
+     console.log(this.userData);
+     console.log(this.userData.userName);
+     console.log(this.userData.email);
+     console.log(this.userData.profileName);
+     console.log(this.userData.accountID)
+     if (res.err === false) {
+      this.authProvider.login(res.userGroupID,res.userName,res.profileName,res.accountID,res.majorID,
+        res.majorName,res.phoneNUm,res.email).then(success => {
+        if (success){
+          localStorage.setItem('accountID',res.accountID);
+          localStorage.setItem('profileName',res.profileName);
+          localStorage.setItem('email',res.email);
+          localStorage.setItem('userName',res.userName);
+          localStorage.setItem('userGroupID',res.userGroupID);
+          this.api.isupdateLogin.next(true);
+          // this.router.navigateByUrl('/menu');
+        }
+      });
+      //  localStorage.setItem('accountID',res.accountID);
+      //  localStorage.setItem('userName',res.userName);
+      //  this.router.navigateByUrl('/menu');
 
-  // private showAlert(message: string) {
-  //   this.alertCtrl
-  //     .create({
-  //       header: 'Authentication failed',
-  //       message,
-  //       buttons: ['Okay']
-  //     })
-  //     .then(alertEl => alertEl.present());
-  this.authProvider.login(this.user.userName, this.user.passcode).then(success => {
-    if (success){
-      this.router.navigateByUrl('/menu');
-    }
-  }).catch(async err => {
-    const code = err.error.error.message;
-    const message = 'Please check your credentials';
+     } else{
 
-    this.showAlert(message);
-  }
-  );
+       this.showAlert(res.message);
+     }
+ },
+ err => {
+   console.log('err: ', err);
+});
+
+
+
   }
 
   private showAlert(message: string) {

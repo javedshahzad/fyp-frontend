@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" menuToggle>
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Project Detail
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Supervisor</ion-label>
+              <ion-select required name="supervisor">
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item>
+            <!-- <ion-item>
+              <ion-label position="floating">Co-supervisor</ion-label>
+              <ion-select name="cosupervisor">
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item> -->
+            <ion-item>
+              <ion-label position="floating">Topic Type</ion-label>
+              <ion-select required name="topicType">
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Title</ion-label>
+              <ion-select required name="topicType">
+                <ion-select-option></ion-select-option>
+                <ion-select-option value="other">
+                  <ion-input
+                ngModel
+                name="title"
+                required
+                #titleCtrl="ngModel"
+              ></ion-input>
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Basic Skills</ion-label>
+              <ion-input
+                ngModel
+                name="skill"
+                required
+                #skillCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Problem Statement</ion-label>
+              <ion-input
+                ngModel
+                name="problemstmt"
+                required
+                #problemstmtCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Objective</ion-label>
+              <ion-input
+                ngModel
+                name="objective"
+                required
+                #objectiveCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Project Outcome</ion-label>
+              <ion-input
+                ngModel
+                name="outcome"
+                required
+                #outcomeCtrl="ngModel"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Project Description</ion-label>
+              <ion-input
+                ngModel
+                name="description"
+                required
+                minlength="6"
+                #description="ngModel"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="block"
+          >
+           Submit
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

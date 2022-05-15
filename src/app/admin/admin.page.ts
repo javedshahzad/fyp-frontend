@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
-import { MenuController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { AuthProvider } from 'src/providers/auth/auth';
 
 @Component({
   selector: 'app-admin',
@@ -9,34 +9,39 @@ import { MenuController } from '@ionic/angular';
 })
 export class AdminPage implements OnInit {
   constructor(
-    private platform: Platform,
-    private menu: MenuController
-    // private splashScreen: SplashScreen,
-    // private statusBar: StatusBar
+    private alertController:AlertController,
+    private nav:NavController,
+    private authProvider: AuthProvider,
   ) {
-    this.initializeApp();
   }
 
   ngOnInit() {
+    if(!this.authProvider.isAdmin()){
+      this.presentAlertConfirm();
+    }
   }
-  initializeApp() {
-    this.platform.ready().then(() => {
-      // this.statusBar.styleDefault();
-      // this.splashScreen.hide();
+  
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Oops!',
+      message: 'You are not login as admin,Please login.',
+      mode:'ios',
+      backdropDismiss:false,
+      buttons: [
+         {
+          text: 'Okay',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.nav.navigateBack('login');
+            localStorage.setItem('userGroupID','');
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-
-  openEnd() {
-    this.menu.open('end');
-  }
-
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
 }

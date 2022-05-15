@@ -51,7 +51,7 @@
               ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Retypr Password</ion-label>
+              <ion-label position="floating">Retype Password</ion-label>
               <ion-input
                 type="password"
                 ngModel
@@ -73,7 +73,7 @@
             </ion-item>
             <ion-item>
               <ion-label position="floating">Major</ion-label>
-              <ion-select required name="major" [(ngModel)]="user.majorID" >
+              <ion-select required name="majorID" [(ngModel)]="user.majorID" >
                 <ion-select-option  value={{major.majorID}} *ngFor="let major of majors">{{major.majorName}}</ion-select-option>
               </ion-select>
             </ion-item>

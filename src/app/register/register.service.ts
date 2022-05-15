@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import{ Major } from '../model/major.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -49,7 +48,7 @@ export class RegisterService {
   // }
 
   getMajor(): Observable<Major[]> {
-    return this.http.get<Major[]>('https://fypmanagementsystemfcsitunimas.000webhostapp.com/majorAPI/read.php');
+    return this.http.get<Major[]>('https://fypmanagementbackend.in/majorAPI/read.php');
   }
 
   // signup(registerData) {
@@ -61,8 +60,9 @@ export class RegisterService {
   //       console.log(res);
   //   });
   // }
-  createUser(registerData: Object): Observable<Object> {
-    console.log(registerData);
-    return this.http.post(`https://fypmanagementsystemfcsitunimas.000webhostapp.com/AccountAPI/create.php`, registerData);
+  createUser(form){
+    return this.http.post(`https://fypmanagementbackend.in/AccountAPI/create.php`,
+     {form
+      });
   }
 }

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'places', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule) },
   { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)},
   { path: 'admin', loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminPageRoutingModule)},
@@ -41,6 +41,10 @@ const routes: Routes = [
   {
     path: 'menu',
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
+  {
+    path: 'search-archive',
+    loadChildren: () => import('./search-archive/search-archive.module').then( m => m.SearchArchivePageModule)
   }
 ];
 

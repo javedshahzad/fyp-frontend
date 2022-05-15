@@ -1,6 +1,5 @@
 
 import { Component, OnInit, Type } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 
@@ -24,7 +23,6 @@ export class RegisterPage implements OnInit {
   submitted = false;
   constructor(
     private registerService: RegisterService,
-    private router: Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController) { }
 
@@ -93,7 +91,6 @@ export class RegisterPage implements OnInit {
   //       );
   //     });
   // }
-
   // onSwitchAuthMode() {
   //   this.isLogin = !this.isLogin;
   // }
@@ -102,19 +99,25 @@ export class RegisterPage implements OnInit {
     this.user = new User();
   }
 
-  save() {
+  save(form) {
+    console.log(form);
     this.registerService
-    .createUser(this.user).subscribe(data => {
+    .createUser(form)
+    .subscribe(data => {
       this.user = new User();
     },
     error => console.log(error));
   }
 
   onSubmit(form: NgForm) {
+    form.value.userGroupID=2;
+    form.value.studLimit=0;
+    form.value.majorID=this.user.majorID;
+    console.log(form.value);
     this.submitted = true;
     this.user.userGroupID=2;
     this.user.studLimit=0;
-    this.save();
+    this.save(form.value);
   }
 
   // onSubmit(form: NgForm) {
