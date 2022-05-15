@@ -13,7 +13,13 @@ export class ProjectDetailService {
   constructor(private http: HttpClient) { }
 
   getTopic(): Observable<Topic[]> {
-    return this.http.get<Topic[]>('https://fypmanagementbackend.in/topicAPI/read.php');
+    return this.http.get<Topic[]>('https://fypmanagementbackend.in/TopicAPI/read.php');
   }
 
+  createProject(){
+
+  }
+  postData(url,data){
+    return this.http.post(url, data);
+  }
 }

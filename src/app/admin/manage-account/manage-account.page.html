@@ -8,37 +8,43 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-button (click)="adminData()">Admin</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button (click)="lecturerData()">Lecturer</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button (click)="studentData()">Student</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid>
-    <ion-row>
-      <ion-col>
+  <ion-content>
+    <div>
+      <ion-tab-bar  color="medium" class="segment-card">
+        <ion-tab-button class="segment-item">
+          <ion-label class="segment-lable">
+            Admin
+          </ion-label>
+        </ion-tab-button>
+        <ion-tab-button class="segment-item">
+          <ion-label class="segment-lable">
+            Student
+          </ion-label>
+        </ion-tab-button>
+        <ion-tab-button class="segment-item">
+          <ion-label class="segment-lable">
+            Lecturer
+          </ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col class= "table">
           Name
-      </ion-col>
-      <ion-col>
-          Email
-      </ion-col>
-      <ion-col>
-          Phone Number
-      </ion-col>
-      <ion-col>
+        </ion-col>
+        <ion-col class= "table">
           Major
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      
-    </ion-row>
-  </ion-grid>
-</ion-content>
+        </ion-col>
+        <ion-col class= "table">
+          Email
+        </ion-col>
+        <ion-col class= "table">
+          Phone No.
+        </ion-col>
+        <ion-col class= "table">
+          Student Limit
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

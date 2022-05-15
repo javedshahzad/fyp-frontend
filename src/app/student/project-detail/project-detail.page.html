@@ -15,8 +15,8 @@
           <ion-list>
             <ion-item>
               <ion-label position="floating">Supervisor</ion-label>
-              <ion-select required name="supervisor">
-                <ion-select-option></ion-select-option>
+              <ion-select name="lectID" (ionChange)="selectedLecrurer($event)">
+                <ion-select-option value={{selectedLecturer.lectID}} *ngFor="let selectedLecturer of topic">{{selectedLecturer.lectName}}</ion-select-option>
               </ion-select>
             </ion-item>
             <!-- <ion-item>
@@ -27,23 +27,19 @@
             </ion-item> -->
             <ion-item>
               <ion-label position="floating">Topic Type</ion-label>
-              <ion-select required name="topicType">
-                <ion-select-option></ion-select-option>
+              <ion-select required ngModel name="topicTypeID">
+                <ion-select-option *ngFor="let item of TopicByLecturer" value="{{item.topicTypeID}}">{{item.title}}</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Title</ion-label>
-              <ion-select required name="topicType">
-                <ion-select-option></ion-select-option>
-                <ion-select-option value="other">
-                  <ion-input
+              <ion-input
                 ngModel
                 name="title"
                 required
                 #titleCtrl="ngModel"
               ></ion-input>
-                </ion-select-option>
-              </ion-select>
+    
             </ion-item>
             <ion-item>
               <ion-label position="floating">Basic Skills</ion-label>

@@ -19,7 +19,7 @@ export
   currentUser: User;
 
   constructor(public http: HttpClient,
-    private nav:NavController
+    private nav: NavController
     ){
 
   }
@@ -84,18 +84,18 @@ export
   logout(){
     this.currentUser = null;
     localStorage.clear();
-    this.nav.navigateBack("login");
+    this.nav.navigateRoot('login');
   }
 
   isAdmin(){
-    return localStorage.getItem('userGroupID') == '0';
+    return localStorage.getItem('userGroupID') === '0';
   }
 
   isLecturer(){
-    return localStorage.getItem('userGroupID') =='1';
+    return localStorage.getItem('userGroupID') ==='1';
   }
 
   isStudent(){
-    return localStorage.getItem('userGroupID') =='2';
+    return localStorage.getItem('userGroupID') ==='2';
   }
  }

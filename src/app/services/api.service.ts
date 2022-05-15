@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,5 +7,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ApiService {
   public isupdateLogin = new BehaviorSubject(true);
-  constructor() { }
+  constructor(
+    public http: HttpClient,
+  ) { }
+
+  postData(url,data){
+    return this.http.post(url, data);
+  }
 }

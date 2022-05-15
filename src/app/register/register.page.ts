@@ -120,40 +120,14 @@ export class RegisterPage implements OnInit {
     this.save(form.value);
   }
 
-  // onSubmit(form: NgForm) {
-  //   if (!form.valid) {
-  //     return;
-  //   }
-  //   const profilename = form.value.profilename;
-  //   const username = form.value.username;
-  //   const email = form.value.email;
-  //   const password = form.value.password;
-  //   const telnum = form.value.telnum;
-  //   const major = form.value.major;
-  //   const supervisor = form.value.supervisor;
-  //   const cosupervisor = form.value.cosupervisor;
-  //   const topicType = form.value.topicType;
-  //   const title = form.value.title;
-  //   const skill = form.value.skill;
-  //   const problemstmt = form.value.problemstmt;
-  //   const objective = form.value.objective;
-  //   const outcome = form.value.outcome;
-  //   const description = form.value.descripton;
-
-  //   this.registerData = [profilename, username, email, password,
-  //     telnum, major, supervisor, cosupervisor, topicType, title, skill, problemstmt, objective, outcome, description];
-  //     console.log(this.registerData);
-  //   this.registerService.signup(this.registerData);
+  // private showAlert(message: string) {
+  //   this.alertCtrl
+  //     .create({
+  //       header: 'Authentication failed',
+  //       message,
+  //       buttons: ['Okay']
+  //     })
+  //     .then(alertEl => alertEl.present());
   // }
-
-  private showAlert(message: string) {
-    this.alertCtrl
-      .create({
-        header: 'Authentication failed',
-        message,
-        buttons: ['Okay']
-      })
-      .then(alertEl => alertEl.present());
-  }
 
 }

@@ -29,7 +29,7 @@ export class AuthPage implements OnInit {
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     private authProvider: AuthProvider,
-    private api:ApiService
+    private api: ApiService
   ) {}
 
   ngOnInit() {}
@@ -62,7 +62,7 @@ export class AuthPage implements OnInit {
      console.log(this.userData.userName);
      console.log(this.userData.email);
      console.log(this.userData.profileName);
-     console.log(this.userData.accountID)
+     console.log(this.userData.accountID);
      if (res.err === false) {
       this.authProvider.login(res.userGroupID,res.userName,res.profileName,res.accountID,res.majorID,
         res.majorName,res.phoneNUm,res.email).then(success => {
@@ -72,6 +72,7 @@ export class AuthPage implements OnInit {
           localStorage.setItem('email',res.email);
           localStorage.setItem('userName',res.userName);
           localStorage.setItem('userGroupID',res.userGroupID);
+          // console.log(localStorage);
           this.api.isupdateLogin.next(true);
           // this.router.navigateByUrl('/menu');
         }

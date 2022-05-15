@@ -1,0 +1,17 @@
+.segment-card {
+  display: flex-start;
+  overflow-x: scroll;
+	justify-content: flex-start;
+  .segment-item {
+      display: inline-block !important;
+      min-width: 100px !important;
+      width: auto !important;
+      .segment-lable{
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+      }
+  }
+}
+
+.table{
+  font-size: 12px;
+}

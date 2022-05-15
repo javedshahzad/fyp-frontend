@@ -51,6 +51,7 @@ export class MenuPage implements OnInit {
       this.pages = [
         { title: 'Lecturer Dashboard', page:'/lecturer', icon: 'home'},
         { title: 'Lecturer Profile', page:'/profile'},
+        { title: 'Manage Topic', page:'/lecturer/manage-topic'},
         { title: 'Student Application', page:'/lecturer/student-application'},
         { title: 'Examine Topic', page:'/lecturer/examine-topic'},
         { title: 'Supervisor', page:'/lecturer/supervisor'},

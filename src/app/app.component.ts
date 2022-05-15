@@ -23,7 +23,7 @@ export class AppComponent  implements OnInit{
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   profileName: string;
   email: string;
-  userName: string='';
+  userName: string;
   constructor(
     public navCtrl: NavController,
     private authProvider: AuthProvider,
@@ -31,13 +31,13 @@ export class AppComponent  implements OnInit{
     private platform: Platform,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    private menu:MenuController,
-    private api:ApiService
+    private menu: MenuController,
+    private api: ApiService
   ) {
     this.api.isupdateLogin.subscribe(_isLogin=>{
       this.loadMenu();
       this.userName=localStorage.getItem('userName');
-    })
+    });
   }
 
   ngOnInit() {
@@ -53,9 +53,9 @@ export class AppComponent  implements OnInit{
   }
 
   loadMenu(){
-    console.log(this.authProvider.isAdmin())
-    console.log(this.authProvider.isLecturer())
-    console.log(this.authProvider.isStudent())
+    console.log(this.authProvider.isAdmin());
+    console.log(this.authProvider.isLecturer());
+    console.log(this.authProvider.isStudent());
     if (this.authProvider.isAdmin()){
       this.appPages = [
         { title: 'Admin Dashboard', url:'/admin', icon: 'home',},
@@ -67,6 +67,7 @@ export class AppComponent  implements OnInit{
       this.appPages = [
         { title: 'Lecturer Dashboard', url:'/lecturer', icon: 'home'},
         { title: 'Lecturer Profile', url:'/profile',icon: 'home'},
+        { title: 'Manage Topic', url:'/lecturer/manage-topic',icon: 'home'},
         { title: 'Student Application', url:'/lecturer/student-application',icon: 'home'},
         { title: 'Examine Topic', url:'/lecturer/examine-topic',icon: 'home'},
         { title: 'Supervisor', url:'/lecturer/supervisor',icon: 'home'},
