@@ -15,8 +15,8 @@
           <ion-list>
             <ion-item>
               <ion-label position="floating">Supervisor</ion-label>
-              <ion-select name="lectID" (ionChange)="selectedLecrurer($event)">
-                <ion-select-option value={{selectedLecturer.lectID}} *ngFor="let selectedLecturer of topic">{{selectedLecturer.lectName}}</ion-select-option>
+              <ion-select name="lectID" (ionChange)="selectedLecturer($event)">
+                <ion-select-option value={{selectLecturer.lectID}} *ngFor="let selectLecturer of topic">{{selectLecturer.lectName}}</ion-select-option>
               </ion-select>
             </ion-item>
             <!-- <ion-item>
@@ -27,11 +27,19 @@
             </ion-item> -->
             <ion-item>
               <ion-label position="floating">Topic Type</ion-label>
-              <ion-select required ngModel name="topicTypeID">
-                <ion-select-option *ngFor="let item of TopicByLecturer" value="{{item.topicTypeID}}">{{item.title}}</ion-select-option>
+              <ion-select required ngModel name="topicTypeID" (ionChange)="selectedTopicType($event)">
+                <ion-select-option value={{selectTopicType.topicTypeID}} *ngFor="let selectTopicType of topicByLecturer">{{selectTopicType.topicTypeName}}</ion-select-option>
               </ion-select>
             </ion-item>
+
             <ion-item>
+              <ion-label position="floating">Title</ion-label>
+              <ion-select required ngModel name="title" (ionChange)="selectedTopicType($event)">
+                <ion-select-option value={{selectTopicType.title}} *ngFor="let selectTopicType of topicByLecturer">{{selectTopicType.title}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <!-- <ion-item>
               <ion-label position="floating">Title</ion-label>
               <ion-input
                 ngModel
@@ -39,8 +47,7 @@
                 required
                 #titleCtrl="ngModel"
               ></ion-input>
-    
-            </ion-item>
+            </ion-item> -->
             <ion-item>
               <ion-label position="floating">Basic Skills</ion-label>
               <ion-input

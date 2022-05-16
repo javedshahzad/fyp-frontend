@@ -14,15 +14,18 @@ import { LoadingController, AlertController } from '@ionic/angular';
 export class ProjectDetailPage implements OnInit {
   topic;
   lecturers;
-  selectedLecturer;
+  selectLecturer;
+  selectTopicType;
   lectID;
   topicID;
+  topicTypeID;
+  titleList;
   public projectForm: FormGroup;
-  LectererID: any;
-  TopicByLecturer: any=[];
+  lecturerID: any;
+  topicByLecturer: any=[];
   formValues: any={};
   constructor(private projectDetailService: ProjectDetailService,
-    private alertCtrl:AlertController
+    private alertCtrl: AlertController
     ) { }
 
   ngOnInit() {
@@ -30,7 +33,7 @@ export class ProjectDetailPage implements OnInit {
 
     this.projectDetailService.getTopic()
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
         this.topic=data;
         this.lecturers= _.groupBy(this.topic,'lectName');
 
@@ -53,39 +56,47 @@ export class ProjectDetailPage implements OnInit {
     this.formValues=form.value;
     this.formValues.studID=localStorage.getItem('accountID');
     console.log(this.formValues);
+    console.log(this.lecturerID)
     const formData =new FormData();
     formData.append('title', this.formValues.title);
     formData.append('topicTypeID', this.formValues.topicTypeID);
     formData.append('skill', this.formValues.skill);
     formData.append('objective', this.formValues.objective);
-    formData.append('lectID', this.formValues.outcome);
+    formData.append('outcome', this.formValues.outcome);
     formData.append('problemstmt', this.formValues.problemstmt);
     formData.append('outcome', this.formValues.outcome);
     formData.append('description', this.formValues.description);
-    formData.append('studID', "1236");
+    formData.append('studID', this.formValues.studID);
+    formData.append('lectID',  this.lecturerID);
 
-    this.projectDetailService.postData('https://fypmanagementbackend.in/ProjectAPI/create.php',formData).subscribe((res:any)=>{
+    this.projectDetailService.postData('https://fypmanagementbackend.in/ProjectAPI/create.php',formData).subscribe((res: any)=>{
       console.log(res);
       if(res.err === false){
         this.showAlert(res.message);
       }else{
         this.showAlert(res.message);
       }
-    })
+    });
   }
-  selectedLecrurer(event){
+  selectedLecturer(event){
     console.log(event.target.value);
-    this.LectererID=event.target.value;
+    this.lecturerID=event.target.value;
     const formData =new FormData();
-    formData.append('lectID', this.LectererID);
-    this.projectDetailService.postData('https://fypmanagementbackend.in/TopicAPI/readOnlyLecturer.php',formData).subscribe((res:any)=>{
-      console.log(res)
+    formData.append('lectID', this.lecturerID);
+    this.projectDetailService.postData('https://fypmanagementbackend.in/TopicAPI/readOnlyLecturer.php',formData).subscribe((res: any)=>{
+      console.log(res);
       if(res.err === false){
-        this.TopicByLecturer=res.data;
+        this.topicByLecturer=res.data;
       }else{
         this.showAlert(res.message);
       }
-    })
+    });
+
+  }
+
+  selectedTopicType(event){
+    this.topicTypeID=event.target.value;
+    console.log(this.topicTypeID);
 
   }
    showAlert(message: string) {
@@ -94,8 +105,17 @@ export class ProjectDetailPage implements OnInit {
         header: 'Created success',
         message,
         backdropDismiss:false,
-        mode:"ios",
-        buttons: ['Okay']
+        buttons: [
+          {
+           text: 'Okay',
+           id: 'confirm-button',
+           handler: () => {
+           //  console.log('Confirm Okay');
+            //  this.nav.navigateBack('login');
+            //  localStorage.setItem('userGroupID','');
+           }
+         }
+       ]
       })
       .then(alertEl => alertEl.present());
   }

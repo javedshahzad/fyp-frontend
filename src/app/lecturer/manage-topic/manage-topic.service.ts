@@ -17,4 +17,8 @@ export class ManageTopicService {
   lectTopicData(url, data) {
     return this.http.post(url, data);
   }
+
+  dropTopic(url, data) {
+    return this.http.post(url, data);
+  }
 }

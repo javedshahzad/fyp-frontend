@@ -61,6 +61,9 @@ export class AppComponent  implements OnInit{
         { title: 'Admin Dashboard', url:'/admin', icon: 'home',},
         { title: 'Admin Profile', url:'/profile', icon: 'person'},
         { title: 'Manage Account', url:'/admin/manage-account', icon: 'home',},
+        { title: 'Manage Project', url:'/admin/manage-project', icon: 'home',},
+        { title: 'Manage Assessment', url:'/admin/manage-assessment', icon: 'home',},
+        { title: 'Manage Archive', url:'/admin/manage-archive', icon: 'home',},
       ];
       // this.openPage('/admin');
     } else if(this.authProvider.isLecturer()){
