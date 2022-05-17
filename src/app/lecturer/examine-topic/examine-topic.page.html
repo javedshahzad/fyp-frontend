@@ -9,5 +9,56 @@
 </ion-header>
 
 <ion-content>
-
-</ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of allProject">
+      <ion-item >
+        <ion-label>
+          <h2>Title</h2>
+          <h2>Topic Type</h2>
+          <h2>Is approved</h2>
+        </ion-label>
+        <ion-label (click)="presentModal(item)">
+          <p>{{item.title}}</p>
+          <p>{{item.topicTypeName}}</p>
+          <p>
+            <span *ngIf="item.haveApprove ==='0'" style="color: red;">No</span>
+            <span *ngIf="item.haveApprove ==='1'" style="color: green;">Yes</span>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-item-option color="primary" expandable (click)="enrol(item.projectID,item.studID)">
+         Enrol
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col>
+          Title
+        </ion-col>
+        <ion-col>
+          Topic Type
+        </ion-col>
+      </ion-row>
+      <ion-item-sliding >
+        <ion-item>
+          <ion-label>
+            <ion-row>
+              <ion-col>Elvin Koo Jun Kiet</ion-col>
+              <ion-col>65864</ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end" >
+          <ion-item-option color="primary" expandable >
+            Approve
+          </ion-item-option>
+          <ion-item-option color="danger" expandable >
+            Reject
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-grid> -->
+  </ion-content>

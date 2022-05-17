@@ -72,7 +72,7 @@ export class AppComponent  implements OnInit{
         { title: 'Lecturer Profile', url:'/profile',icon: 'home'},
         { title: 'Manage Topic', url:'/lecturer/manage-topic',icon: 'home'},
         { title: 'Student Application', url:'/lecturer/student-application',icon: 'home'},
-        { title: 'Examine Topic', url:'/lecturer/examine-topic',icon: 'home'},
+        { title: 'Select Examine Topic', url:'/lecturer/examine-topic',icon: 'home'},
         { title: 'Supervisor', url:'/lecturer/supervisor',icon: 'home'},
         { title: 'Examiner', url:'/lecturer/examiner',icon: 'home'},
         { title: 'Evaluation', url:'/lecturer/evaluation',icon: 'home'},

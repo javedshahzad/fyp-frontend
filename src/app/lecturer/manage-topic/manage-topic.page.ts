@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageTopicService } from './manage-topic.service';
-import { AlertController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
+import { AlertController, ModalController } from '@ionic/angular';
+import { AddTopicModalPage } from '../add-topic-modal/add-topic-modal.page';
 
 @Component({
   selector: 'app-manage-topic',
@@ -12,7 +14,9 @@ export class ManageTopicPage implements OnInit {
   lectTopicData;
 
   constructor( private manageTopicService: ManageTopicService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private apiService: ApiService,
+    private modalController: ModalController,
     ) { }
 
   ngOnInit() {
@@ -20,8 +24,8 @@ export class ManageTopicPage implements OnInit {
     console.log(this.lectID);
     const formData =new FormData();
     formData.append('lectID', this.lectID);
-    const button = document.querySelector('ion-fab-button');
-    button.addEventListener('click', this.addTopic);
+    // const button = document.querySelector('ion-fab-button');
+    // button.addEventListener('click', this.addTopic);
 
     this.manageTopicService.lectTopicData('https://fypmanagementbackend.in/TopicAPI/readOnlyLecturer.php', formData)
     .subscribe((res: any) => {
@@ -33,43 +37,76 @@ export class ManageTopicPage implements OnInit {
 
   deleteTopic(topicID){
     console.log(topicID);
+    this.showDeleteAlert(topicID);
   }
 
-    async addTopic() {
-      const alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: 'Prompt!',
-        inputs: [
-          {
-            name: 'Title',
-            type: 'text',
-            id: 'title',
-            placeholder: 'Topic Title'
-          },
-          {
-            name: 'Topic Type',
-            type: 'text',
-            id: 'topicType',
-            value: 'hello',
-            placeholder: 'Placeholder 2'
-          },
-          // multiline input.
-        ],
+  showDeleteAlert(topicID){
+    this.alertController.create({
+      header:'Confirmation to Delete Topic?',
+      backdropDismiss:false,
+      buttons: [
+        {
+          text: 'Cancel',
+          id: 'cancel-button',
+          handler: () => {
+          //  console.log('Confirm Okay');
+           //  this.nav.navigateBack('login');
+           //  localStorage.setItem('userGroupID','');
+          }
+        },
+        {
+         text: 'Okay',
+         id: 'confirm-button',
+         handler: () => {
+          const formData =new FormData();
+          formData.append('topicID', topicID);
+          this.apiService.postData('https://fypmanagementbackend.in/TopicAPI/delete.php',
+          formData).subscribe((res: any)=>{
+            console.log(res);
+              if(res.err === false){
+                this.showAlert(res.message);
+              }else{
+                this.showAlert(res.message);
+              }
+          });
+         }
+       }
+     ]
+    })
+    .then(alertEl => alertEl.present());
+  }
+
+  // addTopic() {
+  //   thisAlert();
+  // }
+  async showAddModal() {
+    const modal = await this.modalController.create({
+      component: AddTopicModalPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
+ 
+
+  showAlert(message: string) {
+    this.alertController
+      .create({
+        header: 'Created success',
+        message,
+        backdropDismiss:false,
         buttons: [
           {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: () => {
-              console.log('Confirm Ok');
-            }
-          }
-        ]
-      });
+           text: 'Okay',
+           id: 'confirm-button',
+           handler: () => {
+           //  console.log('Confirm Okay');
+            //  this.nav.navigateBack('login');
+            //  localStorage.setItem('userGroupID','');
+           }
+         }
+       ]
+      })
+      .then(alertEl => alertEl.present());
   }
 }

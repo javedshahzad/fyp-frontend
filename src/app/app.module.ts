@@ -12,11 +12,15 @@ import { AuthProvider } from 'src/providers/auth/auth';
 import { Platform } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AddTopicModalPageModule } from './lecturer/add-topic-modal/add-topic-modal.module';
+import { ModalPageModule } from './modal/modal.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, CommonModule,AddTopicModalPageModule,ModalPageModule, HttpClientModule, FormsModule,IonicModule.forRoot(), AppRoutingModule],
   providers: [
     Platform,
     StatusBar,

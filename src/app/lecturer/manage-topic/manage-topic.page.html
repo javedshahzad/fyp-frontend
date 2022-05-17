@@ -9,33 +9,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-  <ion-row>
-    <ion-col>
-      Title
-    </ion-col>
-    <ion-col>
-      Topic Type
-  </ion-col>
-  </ion-row>
-  <ion-item-sliding *ngFor="let topic of lectTopicData">
-    <ion-item>
-      <ion-label>
-        <ion-row>
-          <ion-col>{{topic.title}}</ion-col>
-          <ion-col>{{topic.topicTypeName}}</ion-col>
-        </ion-row>
-      </ion-label>
-    </ion-item>
-    <ion-item-options side="end" (ionSwipe)="deleteTopic(topic.topicID)">
-      <ion-item-option color="danger" expandable (click)="deleteTopic(topic.topicID)">
-        Delete
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-</ion-grid>
+  <ion-list>
+    <ion-item-sliding *ngFor="let topic of lectTopicData">
+      <ion-item >
+        <ion-label>
+          <h2>Title</h2>
+          <h2>Topic Type</h2>
+        </ion-label>
+        <ion-label>
+          <p>{{topic.title}}</p>
+          <p>{{topic.topicTypeName}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-item-option color="danger" expandable (click)="deleteTopic(topic.topicID)">
+         Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (ionClick)="addTopic()">
+    <ion-fab-button (click)="showAddModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

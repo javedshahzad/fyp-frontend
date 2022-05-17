@@ -12,7 +12,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
   styleUrls: ['./project-detail.page.scss'],
 })
 export class ProjectDetailPage implements OnInit {
-  topic;
+  topic=[];
   lecturers;
   selectLecturer;
   selectTopicType;
@@ -24,6 +24,7 @@ export class ProjectDetailPage implements OnInit {
   lecturerID: any;
   topicByLecturer: any=[];
   formValues: any={};
+  tittles: any=[];
   constructor(private projectDetailService: ProjectDetailService,
     private alertCtrl: AlertController
     ) { }
@@ -56,7 +57,7 @@ export class ProjectDetailPage implements OnInit {
     this.formValues=form.value;
     this.formValues.studID=localStorage.getItem('accountID');
     console.log(this.formValues);
-    console.log(this.lecturerID)
+    console.log(this.lecturerID);
     const formData =new FormData();
     formData.append('title', this.formValues.title);
     formData.append('topicTypeID', this.formValues.topicTypeID);
@@ -97,7 +98,12 @@ export class ProjectDetailPage implements OnInit {
   selectedTopicType(event){
     this.topicTypeID=event.target.value;
     console.log(this.topicTypeID);
+    this.tittles.push(this.topicByLecturer.find(e =>e.topicTypeID === this.topicTypeID));
+    console.log(this.tittles);
 
+  }
+  selectedTittles(ev){
+    console.log(ev.target.value);
   }
    showAlert(message: string) {
     this.alertCtrl

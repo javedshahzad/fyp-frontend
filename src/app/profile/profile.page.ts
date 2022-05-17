@@ -14,9 +14,8 @@ export class ProfilePage implements OnInit {
   constructor( private authProvider: AuthProvider) { }
 
   ngOnInit() {
-    this.profileName = this.authProvider.currentUser.profileName;
-    this.majorName = this.authProvider.currentUser.majorName;
-    this.email = this.authProvider.currentUser.email;
+    this.profileName = localStorage.profileName;
+
   }
 
 }

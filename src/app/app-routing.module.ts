@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'search-archive',
     loadChildren: () => import('./search-archive/search-archive.module').then( m => m.SearchArchivePageModule)
+  },
+  {
+    path: 'modal',
+    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   }
 ];
 

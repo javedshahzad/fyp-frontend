@@ -34,8 +34,8 @@
 
             <ion-item>
               <ion-label position="floating">Title</ion-label>
-              <ion-select required ngModel name="title" (ionChange)="selectedTopicType($event)">
-                <ion-select-option value={{selectTopicType.title}} *ngFor="let selectTopicType of topicByLecturer">{{selectTopicType.title}}</ion-select-option>
+              <ion-select required ngModel name="title" (ionChange)="selectedTittles($event)">
+                <ion-select-option value="{{selectTopicType.title}}" *ngFor="let selectTopicType of tittles">{{selectTopicType.title}}</ion-select-option>
               </ion-select>
             </ion-item>
 
