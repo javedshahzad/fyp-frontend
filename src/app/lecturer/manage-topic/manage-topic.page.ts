@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageTopicService } from './manage-topic.service';
 import { ApiService } from 'src/app/services/api.service';
-import { AlertController, ModalController } from '@ionic/angular';
-import { AddTopicModalPage } from '../add-topic-modal/add-topic-modal.page';
-import { AddtopicPage } from 'src/app/addtopic/addtopic.page';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-manage-topic',
@@ -17,7 +15,8 @@ export class ManageTopicPage implements OnInit {
   constructor( private manageTopicService: ManageTopicService,
     public alertController: AlertController,
     private apiService: ApiService,
-    private modalController: ModalController,
+    public modalController: ModalController,
+    public navCtrl: NavController,
     ) { }
 
   ngOnInit() {
@@ -80,15 +79,17 @@ export class ManageTopicPage implements OnInit {
   // addTopic() {
   //   thisAlert();
   // }
-  async showAddModal() {
-    const modal = await this.modalController.create({
-      component: AddtopicPage,
-      cssClass: 'my-custom-class'
-    });
-    return await modal.present();
-  }
+  // async showAddModal() {
+  //   const modal = await this.modalController.create({
+  //     component: AddtopicPage,
+  //     cssClass: 'my-custom-class'
+  //   });
+  //   return await modal.present();
+  // }
 
- 
+  async addTopic() {
+    await this.navCtrl.navigateForward(['/addtopic']);
+}
 
   showAlert(message: string) {
     this.alertController

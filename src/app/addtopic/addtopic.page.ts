@@ -36,10 +36,14 @@ export class AddtopicPage implements OnInit {
       }
     });
   }
-   async dismissModal() {
-    // const onClosedData: string = "Wrapped Up!";
-     await this.modalController.dismiss();
-  }
+  //  async dismissModal() {
+  //   // const onClosedData: string = "Wrapped Up!";
+  //    await this.modalController.dismiss(
+  //      {
+  //       dismissed: true,
+  //      }
+  //    );
+  // }
 
   onSubmit() {
     this.lectID=localStorage.getItem('accountID');

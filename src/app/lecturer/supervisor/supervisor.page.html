@@ -11,25 +11,45 @@
 <ion-content>
   <div>
   <ion-tab-bar  color="medium" class="segment-card">
-    <ion-tab-button class="segment-item">
+    <ion-tab-button class="segment-item" (click)="changeCourse(courseID=1)">
       <ion-label class="segment-lable">
         FYP 1
       </ion-label>
     </ion-tab-button>
-    <ion-tab-button class="segment-item">
+    <ion-tab-button class="segment-item" (click)="changeCourse(courseID=2)">
       <ion-label class="segment-lable">
-        FYP2
+        FYP 2
       </ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </div>
 <ion-grid>
-  <ion-row>
-    <ion-col>
-      <ion-button></ion-button>
-    </ion-col>
-    <ion-col>
-    </ion-col>
-  </ion-row>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of allProjectData"  (click)="openDetails(item)">
+        <ion-item >
+          <ion-label>
+            <h2>Student Name</h2>
+            <h2>Matrics No</h2>
+            <h2>Title</h2>
+          </ion-label>
+          <ion-label >
+            <p>{{item.profileName}}</p>
+            <p>{{item.userName}}</p>
+            <p>{{item.title}}</p>
+          </ion-label>
+        </ion-item>
+        <!-- <ion-item-options side="start" >
+          <ion-item-option color="primary" expandable (click)="approve(item.projectID)">
+           Approve
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item-options side="end" >
+          <ion-item-option color="danger" expandable (click)="reject(item.projectID)">
+           Reject
+          </ion-item-option>
+        </ion-item-options> -->
+      </ion-item-sliding>
+    </ion-list>
+
 </ion-grid>
 </ion-content>

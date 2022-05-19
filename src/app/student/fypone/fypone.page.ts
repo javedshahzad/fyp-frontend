@@ -12,18 +12,16 @@ export class FyponePage implements OnInit {
   courseID;
   studID;
   allAssessmentData;
+  allAssessmentReviewData;
   assessmentName ='';
   file = '';
-  supervisorComment = '';
-  examinerComment='';
-  suApproval = '0';
-  exApproval = '0';
   assessmentID: any='';
+  filePath: any;
 
   constructor(
     private apiService: ApiService,
     private alertCtrl: AlertController,
-    private nav:NavController
+    private nav: NavController
   ) { }
 
   ngOnInit() {
@@ -51,25 +49,41 @@ export class FyponePage implements OnInit {
   }
 
   selectedAssessment(item){
+    this.getReview(item.assessmentID);
     console.log(item);
     this.assessmentName = item.assessmentName;
-    this.supervisorComment==item.supervisorComment;
-    this.examinerComment=item.examinerComment;
-    this.exApproval=item.haveExaminer;
-  this.file = item.file;
-  this.assessmentID=item.assessmentID;
+    this.file = item.fileName;
+    this.assessmentID=item.assessmentID;
+    this.filePath=item.path;
+    console.log(this.filePath)
   // this.supervisorComment = item.;
   // this.examinerComment='';
   // this.suApproval = '0';
   // this.exApproval = '0';
   }
+  openfile(){
+    window.open(this.filePath,'_blank')
+  }
+  getReview(assID){
+    const formData =new FormData();
+    formData.append('assessmentID', assID);
+    this.apiService.getDataByID('https://fypmanagementbackend.in/AssessmentReviewAPI/read.php', formData)
+    .subscribe((res: any) => {
+      console.log(res);
+      if(res.err === false){
+        this.allAssessmentReviewData=res.data;
+      }else{
+        this.showAlert(res.message);
+      }
+    });
+  }
 
 
   uploadFile(){
     if(this.assessmentID){
-      this.nav.navigateForward('uploadfile',{queryParams:{'assessmentID':this.assessmentID}});
+      this.nav.navigateForward('uploadfile',{queryParams:{assessmentID: this.assessmentID}});
     }else{
-      this.showAlert('Please select project first')
+      this.showAlert('Please select project first');
     }
   }
 

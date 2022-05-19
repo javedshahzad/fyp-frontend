@@ -14,13 +14,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ProjectdetailsPageModule } from './projectdetails/projectdetails.module';
-import { AddtopicPageModule } from './addtopic/addtopic.module';
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, CommonModule,ProjectdetailsPageModule,AddtopicPageModule,
+  imports: [BrowserModule, CommonModule,
     HttpClientModule, FormsModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     Platform,

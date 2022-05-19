@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LoadingController, AlertController, ModalController, IonItem } from '@ionic/angular';
 import { ModalPage } from 'src/app/modal/modal.page';
-import { ProjectdetailsPage } from 'src/app/projectdetails/projectdetails.page';
 
 
 @Component({
@@ -139,25 +138,27 @@ showAlert(message: string) {
 }
 
 async presentModal(projectData) {
-  console.log(projectData);
-const modal = await this.modalController.create({
-  cssClass: 'my-custom-class',
-  component: ProjectdetailsPage,
-  componentProps: {
-    studName: projectData.profileName,
-    matrixNo: projectData.userName,
-    email: projectData.email,
-    phoneNum: projectData.phoneNum,
-    title: projectData.title,
-    topicType: projectData.topicTypeName,
-    skill: projectData.skill,
-    problemStmt: projectData.problemStmt,
-    objective: projectData.objective,
-    outcome: projectData.outcome,
-    description: projectData.description
-  }
-});
+// //   console.log(projectData);
+// // const modal = await this.modalController.create({
+// //   cssClass: 'my-custom-class',
+// //   component: ProjectdetailsPage,
+// //   componentProps: {
+// //     studName: projectData.profileName,
+// //     matrixNo: projectData.userName,
+// //     email: projectData.email,
+// //     phoneNum: projectData.phoneNum,
+// //     title: projectData.title,
+// //     topicType: projectData.topicTypeName,
+// //     skill: projectData.skill,
+// //     problemStmt: projectData.problemStmt,
+// //     objective: projectData.objective,
+// //     outcome: projectData.outcome,
+// //     description: projectData.description
+// //   }
+// });
 
-return await modal.present();
+// if(modal){
+//   return await modal.present();
+// }
 }
 }

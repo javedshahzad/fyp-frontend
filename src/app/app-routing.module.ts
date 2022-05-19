@@ -54,14 +54,14 @@ const routes: Routes = [
     path: 'uploadfile',
     loadChildren: () => import('./uploadfile/uploadfile.module').then( m => m.UploadfilePageModule)
   },
-  // {
-  //   path: 'projectdetails',
-  //   loadChildren: () => import('./projectdetails/projectdetails.module').then( m => m.ProjectdetailsPageModule)
-  // },
-  // {
-  //   path: 'addtopic',
-  //   loadChildren: () => import('./addtopic/addtopic.module').then( m => m.AddtopicPageModule)
-  // }
+  {
+    path: 'projectdetails',
+    loadChildren: () => import('./lecturer/projectdetails/projectdetails.module').then( m => m.ProjectdetailsPageModule)
+  },
+   {
+    path: 'addtopic',
+    loadChildren: () => import('./addtopic/addtopic.module').then( m => m.AddtopicPageModule)
+  },
 ];
 
 @NgModule({

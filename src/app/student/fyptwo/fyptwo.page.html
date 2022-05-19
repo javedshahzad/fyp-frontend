@@ -48,30 +48,30 @@
     </ion-tab-bar>
   </div>
   <ion-grid>
+    <ion-label>{{this.assessmentName}}</ion-label>
     <ion-item>
-      <p>FileName : </p>
-      <button ion-button color="secondary" (click)="getFile()">{{this.file}}</button>
+      <p>FileName : {{file}}</p>
     </ion-item>
-    <ion-item>
-      <ion-label position="floating">Supervisor Comment</ion-label>
-      <p>{{this.supervisorComment}}</p>
+    <ion-item *ngFor="let review of allAssessmentReviewData">
+      <ion-label position="floating">{{review.roleName}} Comment</ion-label>
+      <p>{{review.lectComment}}</p>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label position="floating">Examiner Comment</ion-label>
-      <p>{{this.examinerComment}}</p>
-    </ion-item>
-    <ion-item >
+      <p>{{examinerComment}}</p>
+    </ion-item> -->
+    <ion-item *ngFor="let approval of allAssessmentReviewData">
       <ion-label>
-        <h2>Supervisor approved</h2>
+        <h2>{{approval.roleName}} Approval</h2>
       </ion-label>
       <ion-label>
         <p>
-          <span *ngIf="this.suApproval === '0'" style="color: red;">No</span>
-          <span  *ngIf="this.suApproval === '1'" style="color: green;">Yes</span>
+          <span *ngIf="approval.approvalID === '0' " style="color: red;">Waiting</span>
+          <span  *ngIf="approval.approvalID === '1' " style="color: green;">Approved</span>
         </p>
       </ion-label>
     </ion-item>
-    <ion-item >
+    <!-- <ion-item >
       <ion-label>
         <h2>Examiner approved</h2>
       </ion-label>
@@ -81,7 +81,7 @@
           <span *ngIf="this.exApproval ==='1'" style="color: green;">Yes</span>
         </p>
       </ion-label>
-    </ion-item>
+    </ion-item> -->
   </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="uploadFile()">

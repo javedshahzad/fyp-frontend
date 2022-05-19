@@ -26,8 +26,10 @@ export class ModalPage implements OnInit {
   ngOnInit() {
     // console.table(this.navParams);
   }
-   dismissModal() {
+   async dismissModal() {
     // const onClosedData: string = "Wrapped Up!";
-     this.modalController.dismiss();
+      await this.modalController.dismiss({
+      //  dismissed: true
+     });
   }
 }

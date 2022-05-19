@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { LoadingController, AlertController, ModalController, IonItem } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController, IonItem, PopoverController, NavController } from '@ionic/angular';
 import { ModalPage } from 'src/app/modal/modal.page';
-import { ProjectdetailsPage } from 'src/app/projectdetails/projectdetails.page';
 
 @Component({
   selector: 'app-examine-topic',
@@ -17,6 +16,8 @@ export class ExamineTopicPage implements OnInit {
     private apiService: ApiService,
     private alertCtrl: AlertController,
     public modalController: ModalController,
+    public popOverController: PopoverController,
+    private nav:NavController
   ) { }
 
   ngOnInit() {
@@ -98,24 +99,27 @@ showAlert(message: string) {
 
   async presentModal(projectData) {
     console.log(projectData);
-  const modal = await this.modalController.create({
-    cssClass: 'my-custom-class',
-    component: ProjectdetailsPage,
-    componentProps: {
-      studName: projectData.profileName,
-      matrixNo: projectData.userName,
-      email: projectData.email,
-      phoneNum: projectData.phoneNum,
-      title: projectData.title,
-      topicType: projectData.topicTypeName,
-      skill: projectData.skill,
-      problemStmt: projectData.problemStmt,
-      objective: projectData.objective,
-      outcome: projectData.outcome,
-      description: projectData.description
-    }
-  });
+    this.nav.navigateForward('projectdetails',{queryParams:{data:projectData}})
+  // const modal = await this.modalController.create({
+  //   cssClass: 'my-custom-class',
+  //   component: ModalPage,
+  //   componentProps: {
+  //     studName: projectData.profileName,
+  //     matrixNo: projectData.userName,
+  //     email: projectData.email,
+  //     phoneNum: projectData.phoneNum,
+  //     title: projectData.title,
+  //     topicType: projectData.topicTypeName,
+  //     skill: projectData.skill,
+  //     problemStmt: projectData.problemStmt,
+  //     objective: projectData.objective,
+  //     outcome: projectData.outcome,
+  //     description: projectData.description
+  //   }
+  // });
+  // if(modal){
+  //   return await modal.present();
+  // }
 
-  return await modal.present();
 }
 }

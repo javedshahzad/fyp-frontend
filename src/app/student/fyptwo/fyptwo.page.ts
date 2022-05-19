@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController,NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -11,17 +11,18 @@ export class FyptwoPage implements OnInit {
 
   courseID;
   studID;
+  assessmentID: any='';
   allAssessmentData;
+  allAssessmentReviewData;
   assessmentName ='';
   file = '';
-  supervisorComment = '';
-  examinerComment='';
-  suApproval = '0';
-  exApproval = '0';
+  filePath: any;
+
 
   constructor(
     private apiService: ApiService,
     private alertCtrl: AlertController,
+    private nav: NavController
   ) { }
 
   ngOnInit() {
@@ -49,12 +50,40 @@ export class FyptwoPage implements OnInit {
   }
 
   selectedAssessment(item){
+    this.getReview(item.assessmentID);
     console.log(item);
+    this.assessmentName = item.assessmentName;
+    this.file = item.fileName;
+    this.assessmentID=item.assessmentID;
+    this.filePath=item.path;
+    console.log(this.filePath);
+  // this.supervisorComment = item.;
+  // this.examinerComment='';
+  // this.suApproval = '0';
+  // this.exApproval = '0';
+  }
+
+  getReview(assID){
+    const formData =new FormData();
+    formData.append('assessmentID', assID);
+    this.apiService.getDataByID('https://fypmanagementbackend.in/AssessmentReviewAPI/read.php', formData)
+    .subscribe((res: any) => {
+      console.log(res);
+      if(res.err === false){
+        this.allAssessmentReviewData=res.data;
+      }else{
+        this.showAlert(res.message);
+      }
+    });
   }
 
 
   uploadFile(){
-
+    if(this.assessmentID){
+      this.nav.navigateForward('uploadfile',{queryParams:{assessmentID: this.assessmentID}});
+    }else{
+      this.showAlert('Please select project first');
+    }
   }
 
   getFile(){
