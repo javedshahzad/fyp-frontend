@@ -10,45 +10,83 @@
 <ion-content>
   <div>
     <ion-tab-bar  color="medium" class="segment-card">
-      <ion-tab-button class="segment-item">
+      <ion-tab-button class="segment-item" *ngFor="let item of allAssessmentData">
+        <ion-label class="segment-lable" (click)="selectedAssessment(item)">
+          {{item.assessmentName}}
+        </ion-label>
+      </ion-tab-button>
+      <!-- <ion-tab-button class="segment-item">
         <ion-label class="segment-lable">
-          FYP2 Restructure
+          Chapter 1
         </ion-label>
       </ion-tab-button>
       <ion-tab-button class="segment-item">
         <ion-label class="segment-lable">
-          Chapter 4
+          Chapter 2
         </ion-label>
       </ion-tab-button>
       <ion-tab-button class="segment-item">
         <ion-label class="segment-lable">
-          Chapter 5
+          Chapter 3
         </ion-label>
       </ion-tab-button>
       <ion-tab-button class="segment-item">
         <ion-label class="segment-lable">
-          Chapter 6
+          FYP1 Report Draft
         </ion-label>
       </ion-tab-button>
       <ion-tab-button class="segment-item">
         <ion-label class="segment-lable">
-          FYP2 Final Report
+          FYP1 Final Report
         </ion-label>
       </ion-tab-button>
       <ion-tab-button class="segment-item">
         <ion-label class="segment-lable">
-          FYP2 Final Amendment
+          FYP1 Final Report After Amendment
         </ion-label>
-      </ion-tab-button>
+      </ion-tab-button> -->
     </ion-tab-bar>
   </div>
   <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-button></ion-button>
-      </ion-col>
-      <ion-col>
-      </ion-col>
-    </ion-row>
+    <ion-item>
+      <p>FileName : </p>
+      <button ion-button color="secondary" (click)="getFile()">{{this.file}}</button>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Supervisor Comment</ion-label>
+      <p>{{this.supervisorComment}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Examiner Comment</ion-label>
+      <p>{{this.examinerComment}}</p>
+    </ion-item>
+    <ion-item >
+      <ion-label>
+        <h2>Supervisor approved</h2>
+      </ion-label>
+      <ion-label>
+        <p>
+          <span *ngIf="this.suApproval === '0'" style="color: red;">No</span>
+          <span  *ngIf="this.suApproval === '1'" style="color: green;">Yes</span>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item >
+      <ion-label>
+        <h2>Examiner approved</h2>
+      </ion-label>
+      <ion-label>
+        <p>
+          <span *ngIf="this.exApproval ==='0'" style="color: red;">No</span>
+          <span *ngIf="this.exApproval ==='1'" style="color: green;">Yes</span>
+        </p>
+      </ion-label>
+    </ion-item>
   </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="uploadFile()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

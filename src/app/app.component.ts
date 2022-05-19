@@ -38,6 +38,17 @@ export class AppComponent  implements OnInit{
       this.loadMenu();
       this.userName=localStorage.getItem('userName');
     });
+  
+    if(this.authProvider.isAdmin()){
+      this.navCtrl.navigateForward('admin');
+    }else if(this.authProvider.isLecturer()){
+      this.navCtrl.navigateForward('lecturer');
+    }else if(this.authProvider.isStudent()){
+      this.navCtrl.navigateForward('student');
+    }else{
+      this.navCtrl.navigateForward('login');
+    }
+    
   }
 
   ngOnInit() {
@@ -105,6 +116,9 @@ export class AppComponent  implements OnInit{
     // this.router.navigateByUrl('/login');
   }
 
+  ionViewWillEnter() {
+    this.menu.enable(true);
+  }
   // ionViewCanEnter(){
   //   return this.authProvider.isLoggedIn();
   // }

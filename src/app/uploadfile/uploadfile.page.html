@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Upload File</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label>Select File</ion-label>
+<ion-item>
+  <input type="file" (change)="upload($event)" class="foo" />
+</ion-item>
+<ion-button (click)="Uploaded()" expand="full">
+  Upload
+</ion-button>
+</ion-content>

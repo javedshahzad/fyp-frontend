@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { MenuController, AlertController, NavController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 
 @Component({
@@ -9,9 +9,10 @@ import { AuthProvider } from 'src/providers/auth/auth';
 })
 export class AdminPage implements OnInit {
   constructor(
-    private alertController:AlertController,
-    private nav:NavController,
+    private alertController: AlertController,
+    private nav: NavController,
     private authProvider: AuthProvider,
+    private menu: MenuController,
   ) {
   }
 
@@ -20,7 +21,11 @@ export class AdminPage implements OnInit {
       this.presentAlertConfirm();
     }
   }
-  
+
+  ionViewWillEnter() {
+    this.menu.enable(true);
+  }
+
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

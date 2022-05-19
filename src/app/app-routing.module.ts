@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
 
@@ -49,11 +49,25 @@ const routes: Routes = [
   {
     path: 'modal',
     loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
-  }
+  },
+  {
+    path: 'uploadfile',
+    loadChildren: () => import('./uploadfile/uploadfile.module').then( m => m.UploadfilePageModule)
+  },
+  // {
+  //   path: 'projectdetails',
+  //   loadChildren: () => import('./projectdetails/projectdetails.module').then( m => m.ProjectdetailsPageModule)
+  // },
+  // {
+  //   path: 'addtopic',
+  //   loadChildren: () => import('./addtopic/addtopic.module').then( m => m.AddtopicPageModule)
+  // }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

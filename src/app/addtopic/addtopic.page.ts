@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AlertController, ModalController, NavParams } from '@ionic/angular';
-import { ApiService } from 'src/app/services/api.service';
+import { AlertController, ModalController } from '@ionic/angular';
+import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-add-topic-modal',
-  templateUrl: './add-topic-modal.page.html',
-  styleUrls: ['./add-topic-modal.page.scss'],
+  selector: 'app-addtopic',
+  templateUrl: './addtopic.page.html',
+  styleUrls: ['./addtopic.page.scss'],
 })
-export class AddTopicModalPage implements OnInit {
+export class AddtopicPage implements OnInit {
   allTopicType = [];
   formValues: any={};
   title: any;
@@ -80,4 +79,5 @@ export class AddTopicModalPage implements OnInit {
       })
       .then(alertEl => alertEl.present());
   }
+
 }

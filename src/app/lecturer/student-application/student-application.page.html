@@ -10,14 +10,14 @@
 
 <ion-content>
 <ion-list>
-  <ion-item-sliding *ngFor="let item of allApplications">
+  <ion-item-sliding *ngFor="let item of allApplications"  (click)="presentModal(item)">
     <ion-item >
       <ion-label>
         <h2>Title</h2>
         <h2>Topic Type</h2>
         <h2>Is approved</h2>
       </ion-label>
-      <ion-label>
+      <ion-label >
         <p>{{item.title}}</p>
         <p>{{item.topicTypeName}}</p>
         <p>

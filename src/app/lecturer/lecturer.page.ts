@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 
 @Component({
@@ -10,15 +10,20 @@ import { AuthProvider } from 'src/providers/auth/auth';
 export class LecturerPage implements OnInit {
 
   constructor(
-    private alertController:AlertController,
-    private nav:NavController,
+    private alertController: AlertController,
+    private nav: NavController,
     private authProvider: AuthProvider,
+    private menu: MenuController,
   ) { }
 
   ngOnInit() {
     if(!this.authProvider.isLecturer()){
       this.presentAlertConfirm();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(true);
   }
   async presentAlertConfirm() {
     const alert = await this.alertController.create({

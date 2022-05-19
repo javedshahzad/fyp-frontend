@@ -1,11 +1,10 @@
+import {Component, OnInit, Type} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {LoadingController, AlertController} from '@ionic/angular';
 
-import { Component, OnInit, Type } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
-
-import { RegisterService } from './register.service';
-import { User } from '../model/user.model';
-import { Major } from '../model/major.model';
+import {RegisterService} from './register.service';
+import {User} from '../model/user.model';
+import {Major} from '../model/major.model';
 
 
 @Component({
@@ -21,10 +20,12 @@ export class RegisterPage implements OnInit {
   registerData = [];
   user: User = new User();
   submitted = false;
+
   constructor(
     private registerService: RegisterService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController) {
+  }
 
   ngOnInit() {
     // this.major = this.registerService.getMajor().subscribe((data:Major)=> this.majors{
@@ -34,31 +35,31 @@ export class RegisterPage implements OnInit {
     // console.log('major',this.major);
     this.registerService.getMajor()
       .subscribe(data => {
-        this.majors=data;
+        this.majors = data;
         console.log(this.majors);
       }, error => console.log(error));
 
-  //     this.userForm = formBuilder.group({
+    //     this.userForm = formBuilder.group({
 
-  //       email: [''],
-  //       password: [''],
-  //       confirmPassword: ['', Validators.required],
-  //     }, {validator: this.matchingPasswords('passcode', 're_passcode')});
+    //       email: [''],
+    //       password: [''],
+    //       confirmPassword: ['', Validators.required],
+    //     }, {validator: this.matchingPasswords('passcode', 're_passcode')});
 
 
-  // matchingPasswords(passcode: string, re_passcode: string) {
-  //     // TODO maybe use this https://github.com/yuyang041060120/ng2-validation#notequalto-1
-  //     return (form: NgForm): {[key: string]: any} => {
-  //       let password = form.value.passcode;
-  //       let confirmPassword = form.value.re_passcode;
+    // matchingPasswords(passcode: string, re_passcode: string) {
+    //     // TODO maybe use this https://github.com/yuyang041060120/ng2-validation#notequalto-1
+    //     return (form: NgForm): {[key: string]: any} => {
+    //       let password = form.value.passcode;
+    //       let confirmPassword = form.value.re_passcode;
 
-  //       if (password.value !== confirmPassword.value) {
-  //         return {
-  //           mismatchedPasswords: true
-  //         };
-  //       }
-  //     }
-  //   }
+    //       if (password.value !== confirmPassword.value) {
+    //         return {
+    //           mismatchedPasswords: true
+    //         };
+    //       }
+    //     }
+    //   }
   }
 
   // authenticate(profilename: string, username: string,
@@ -102,32 +103,40 @@ export class RegisterPage implements OnInit {
   save(form) {
     console.log(form);
     this.registerService
-    .createUser(form)
-    .subscribe(data => {
-      this.user = new User();
-    },
-    error => console.log(error));
+      .createUser(form)
+      .subscribe(data => {
+          const res: any = data;
+          if (res?.response[0].status=== true) {
+            this.showAlert('Your account has been created', 'Success');
+            this.user = new User();
+          } else {
+            this.showAlert(res?.response[0].detail);
+          }
+        },
+        error => {
+          this.showAlert('Something went wrong');
+        });
   }
 
   onSubmit(form: NgForm) {
-    form.value.userGroupID=2;
-    form.value.studLimit=0;
-    form.value.majorID=this.user.majorID;
+    form.value.userGroupID = 2;
+    form.value.studLimit = 0;
+    form.value.majorID = this.user.majorID;
     console.log(form.value);
     this.submitted = true;
-    this.user.userGroupID=2;
-    this.user.studLimit=0;
+    this.user.userGroupID = 2;
+    this.user.studLimit = 0;
     this.save(form.value);
   }
 
-  // private showAlert(message: string) {
-  //   this.alertCtrl
-  //     .create({
-  //       header: 'Authentication failed',
-  //       message,
-  //       buttons: ['Okay']
-  //     })
-  //     .then(alertEl => alertEl.present());
-  // }
+  private showAlert(message: string, head = 'Registration failed') {
+    this.alertCtrl
+      .create({
+        header: head,
+        message,
+        buttons: ['Okay']
+      })
+      .then(alertEl => alertEl.present());
+  }
 
 }

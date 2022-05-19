@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {LoadingController, AlertController, NavController, MenuController} from '@ionic/angular';
 
-import { AuthService } from './auth.service';
-import { AuthProvider } from 'src/providers/auth/auth';
-import { ApiService } from '../services/api.service';
+import {AuthService} from './auth.service';
+import {AuthProvider} from 'src/providers/auth/auth';
+import {ApiService} from '../services/api.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,7 @@ export class AuthPage implements OnInit {
   isLogin = true;
 
   user = {
-    userName:'',
+    userName: '',
     passcode: '',
   };
   userData: any;
@@ -28,11 +29,19 @@ export class AuthPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public navCtrl: NavController,
+    private httpClient: HttpClient,
     private authProvider: AuthProvider,
-    private api: ApiService
-  ) {}
+    private api: ApiService,
+    public menuCtrl: MenuController
+  ) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
 
   // authenticate(username: string, password: string) {
   //   this.isLoading = true;
@@ -47,49 +56,72 @@ export class AuthPage implements OnInit {
   //       );
   // }
 
+  validateEmail(email) {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
+  async onSubmit(form: NgForm) {
+    const fD = new FormData();
+    fD.append('userName', this.user.userName);
+    fD.append('passcode', this.user.passcode);
+    if (this.validateEmail(this.user.userName)) {
+      fD.append('isEmail', JSON.stringify(true));
+    }
+    /* this.httpClient.post(`https://fypmanagementbackend.in/AccountAPI/login.php`, fD).subscribe(res => {
+       const response = res['response'][0];
+       if (response.status) {
+         console.log(res);
+       } else {
+         this.showAlert(response.desc);
+         console.log(res);
+       }
+     }, err => {
+       this.showAlert('We did not find any user');
+     });*/
+    console.log(this.user);
+    this.authProvider.loginData('https://fypmanagementbackend.in/AccountAPI/login.php', fD).subscribe((resp: any) => {
+        const response = resp.response[0];
+        this.userData = response.detail;
+        console.log(this.userData);
+        console.log(this.userData?.userName);
+        console.log(this.userData?.email);
+        console.log(this.userData?.profileName);
+        console.log(this.userData?.accountID);
+        const res = this.userData;
+        localStorage.setItem('accountID', res.accountID);
+        localStorage.setItem('profileName', res.profileName);
+        localStorage.setItem('email', res.email);
+        localStorage.setItem('userName', res.userName);
+        localStorage.setItem('userGroupID', res.userGroupID);
+        console.log( res.userGroupID)
+        // console.log(localStorage);
+        this.api.isupdateLogin.next(true);
+        if (response.status) {
+          const res = this.userData;
+          this.authProvider.login(res.userGroupID, res.userName, res.profileName, res.accountID, res.majorID,
+            res.majorName, res.phoneNUm, res.email).then(success => {
+            if (success) {
+            
+              // this.router.navigateByUrl('/menu');
+            }
+          });
+          //  localStorage.setItem('accountID',res.accountID);
+          //  localStorage.setItem('userName',res.userName);
+          //  this.router.navigateByUrl('/menu');
 
-  onSubmit(form: NgForm) {
- console.log(this.user);
+        } else {
 
- const formData =new FormData();
- formData.append('userName', this.user.userName);
- formData.append('passcode', this.user.passcode);
- this.authProvider.loginData('https://fypmanagementbackend.in/AccountAPI/login.php', formData).subscribe((res: any) => {
-   this.userData=res;
-     console.log(res);
-     console.log(this.userData);
-     console.log(this.userData.userName);
-     console.log(this.userData.email);
-     console.log(this.userData.profileName);
-     console.log(this.userData.accountID);
-     if (res.err === false) {
-      this.authProvider.login(res.userGroupID,res.userName,res.profileName,res.accountID,res.majorID,
-        res.majorName,res.phoneNUm,res.email).then(success => {
-        if (success){
-          localStorage.setItem('accountID',res.accountID);
-          localStorage.setItem('profileName',res.profileName);
-          localStorage.setItem('email',res.email);
-          localStorage.setItem('userName',res.userName);
-          localStorage.setItem('userGroupID',res.userGroupID);
-          // console.log(localStorage);
-          this.api.isupdateLogin.next(true);
-          // this.router.navigateByUrl('/menu');
+          this.showAlert(response.desc);
         }
+      },
+      err => {
+        this.showAlert('We did not find any user');
+        console.log('err: ', err);
       });
-      //  localStorage.setItem('accountID',res.accountID);
-      //  localStorage.setItem('userName',res.userName);
-      //  this.router.navigateByUrl('/menu');
-
-     } else{
-
-       this.showAlert(res.message);
-     }
- },
- err => {
-   console.log('err: ', err);
-});
-
 
 
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LoadingController, AlertController, ModalController, IonItem } from '@ionic/angular';
 import { ModalPage } from 'src/app/modal/modal.page';
+import { ProjectdetailsPage } from 'src/app/projectdetails/projectdetails.page';
 
 @Component({
   selector: 'app-examine-topic',
@@ -99,7 +100,7 @@ showAlert(message: string) {
     console.log(projectData);
   const modal = await this.modalController.create({
     cssClass: 'my-custom-class',
-    component: ModalPage,
+    component: ProjectdetailsPage,
     componentProps: {
       studName: projectData.profileName,
       matrixNo: projectData.userName,
@@ -114,7 +115,7 @@ showAlert(message: string) {
       description: projectData.description
     }
   });
- 
+
   return await modal.present();
 }
 }

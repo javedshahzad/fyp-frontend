@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController, IonItem } from '@ionic/angular';
+import { ModalPage } from 'src/app/modal/modal.page';
+import { ProjectdetailsPage } from 'src/app/projectdetails/projectdetails.page';
+
 
 @Component({
   selector: 'app-student-application',
@@ -13,7 +16,8 @@ export class StudentApplicationPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -132,5 +136,28 @@ showAlert(message: string) {
      ]
     })
     .then(alertEl => alertEl.present());
+}
+
+async presentModal(projectData) {
+  console.log(projectData);
+const modal = await this.modalController.create({
+  cssClass: 'my-custom-class',
+  component: ProjectdetailsPage,
+  componentProps: {
+    studName: projectData.profileName,
+    matrixNo: projectData.userName,
+    email: projectData.email,
+    phoneNum: projectData.phoneNum,
+    title: projectData.title,
+    topicType: projectData.topicTypeName,
+    skill: projectData.skill,
+    problemStmt: projectData.problemStmt,
+    objective: projectData.objective,
+    outcome: projectData.outcome,
+    description: projectData.description
+  }
+});
+
+return await modal.present();
 }
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, NavParams } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,13 +14,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AddTopicModalPageModule } from './lecturer/add-topic-modal/add-topic-modal.module';
-import { ModalPageModule } from './modal/modal.module';
+import { ProjectdetailsPageModule } from './projectdetails/projectdetails.module';
+import { AddtopicPageModule } from './addtopic/addtopic.module';
+
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, CommonModule,AddTopicModalPageModule,ModalPageModule, HttpClientModule, FormsModule,IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, CommonModule,ProjectdetailsPageModule,AddtopicPageModule,
+    HttpClientModule, FormsModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     Platform,
     StatusBar,

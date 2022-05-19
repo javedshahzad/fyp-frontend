@@ -3,6 +3,7 @@ import { ManageTopicService } from './manage-topic.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AddTopicModalPage } from '../add-topic-modal/add-topic-modal.page';
+import { AddtopicPage } from 'src/app/addtopic/addtopic.page';
 
 @Component({
   selector: 'app-manage-topic',
@@ -81,7 +82,7 @@ export class ManageTopicPage implements OnInit {
   // }
   async showAddModal() {
     const modal = await this.modalController.create({
-      component: AddTopicModalPage,
+      component: AddtopicPage,
       cssClass: 'my-custom-class'
     });
     return await modal.present();

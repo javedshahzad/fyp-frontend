@@ -15,6 +15,9 @@ export class ApiService {
     return this.http.post(url, data);
   }
 
+  getDataByID(url,data){
+    return this.http.post(url,data);
+  }
   getData(url){
     return this.http.get(url);
   }

@@ -1,12 +1,13 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
+import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.page.html',
-  styleUrls: ['./modal.page.scss'],
+  selector: 'app-projectdetails',
+  templateUrl: './projectdetails.page.html',
+  styleUrls: ['./projectdetails.page.scss'],
 })
-export class ModalPage implements OnInit {
+export class ProjectdetailsPage implements OnInit {
   @Input()studName: string;
   @Input()matrixNo: string;
   @Input()email: string;
@@ -20,14 +21,16 @@ export class ModalPage implements OnInit {
   @Input()description: string;
   constructor(
     private modalController: ModalController,
-    // private navParams: NavParams
-  ) { }
+  ) {
+
+   }
 
   ngOnInit() {
-    // console.table(this.navParams);
+
   }
-   dismissModal() {
+  dismissModal() {
     // const onClosedData: string = "Wrapped Up!";
      this.modalController.dismiss();
   }
+
 }
