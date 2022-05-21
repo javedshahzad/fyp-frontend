@@ -16,7 +16,7 @@
       </ion-tab-button>
     </ion-tab-bar>
   </div>
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-label>{{assessmentName}}</ion-label>
     <br>
     <br>
@@ -47,17 +47,41 @@
           </p>
         </ion-label>
       </ion-item>
-    </div>
+    </div> -->
 
-    
+
 
     <!-- <ion-item *ngFor="let approval of allAssessmentReviewData">
-      
+
     </ion-item> -->
+  <!-- </ion-grid> -->
+
+
+  <ion-grid>
+    <ion-label>{{this.assessmentName}}</ion-label>
+    <ion-item>
+      <p>FileName : {{file}}</p>
+      <ion-button slot="end" size="small" (click)="openfile(this.filePath)" *ngIf="file">Open</ion-button>
+    </ion-item>
+    <ion-item *ngFor="let review of allAssessmentReviewData">
+      <ion-label position="floating">{{review.roleName}} Comment</ion-label>
+      <p>{{review.lectComment}}</p>
+    </ion-item>
+    <ion-item *ngFor="let approval of allAssessmentReviewData">
+      <ion-label>
+        <h2>{{approval.roleName}} Approval</h2>
+      </ion-label>
+      <ion-label>
+        <p>
+          <span *ngIf="approval.approvalID === '0' " style="color: red;">Waiting</span>
+          <span  *ngIf="approval.approvalID === '1' " style="color: green;">Approved</span>
+        </p>
+      </ion-label>
+    </ion-item>
   </ion-grid>
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="uploadFile()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="giveReview()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab> -->
+  </ion-fab>
 </ion-content>

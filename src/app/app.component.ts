@@ -38,7 +38,6 @@ export class AppComponent  implements OnInit{
       this.loadMenu();
       this.userName=localStorage.getItem('userName');
     });
-  
     if(this.authProvider.isAdmin()){
       this.navCtrl.navigateForward('admin');
     }else if(this.authProvider.isLecturer()){
@@ -48,7 +47,6 @@ export class AppComponent  implements OnInit{
     }else{
       this.navCtrl.navigateForward('login');
     }
-    
   }
 
   ngOnInit() {
@@ -74,6 +72,7 @@ export class AppComponent  implements OnInit{
         { title: 'Manage Account', url:'/admin/manage-account', icon: 'home',},
         { title: 'Manage Project', url:'/admin/manage-project', icon: 'home',},
         { title: 'Manage Assessment', url:'/admin/manage-assessment', icon: 'home',},
+        { title: 'Manage Evaluation', url:'/admin/manage-evaluation', icon: 'home',},
         { title: 'Manage Archive', url:'/admin/manage-archive', icon: 'home',},
       ];
       // this.openPage('/admin');

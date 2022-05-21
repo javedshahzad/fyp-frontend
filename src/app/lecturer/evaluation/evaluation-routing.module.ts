@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: EvaluationPage
+  },
+  {
+    path: 'evaluate-selected',
+    loadChildren: () => import('./evaluate-selected/evaluate-selected.module').then( m => m.EvaluateSelectedPageModule)
   }
 ];
 

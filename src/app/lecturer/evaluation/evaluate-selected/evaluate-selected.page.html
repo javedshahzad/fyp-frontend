@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Evaluation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-item>
+  <ion-label class="first">
+    <h2>Name:</h2>
+    <h2>Matric:</h2>
+    <h2>Title:</h2>
+  </ion-label>
+  <ion-label>
+    <p>{{studentName}}</p>
+    <p>{{matrixNum}}</p>
+    <p>{{title}}</p>
+  </ion-label>
+</ion-item>
+<ion-list>
+  <ion-item *ngFor="let item of allEvaluationData">
+    <ion-grid>
+      <ion-row><ion-label>{{item.Name}}</ion-label></ion-row>
+      <ion-row><p>
+        {{item.evDescription}}
+      </p></ion-row>
+      <ion-row>
+        <ion-range
+        min="0"
+        max="10"
+        pin="true"
+        snaps="true"
+        step="1"
+        color="primary"
+        class="range"
+        (ionChange)="onChange($event,item)"
+        >
+          <ion-label slot="start">0</ion-label>
+          <ion-label slot="end">10</ion-label>
+        </ion-range>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-label>{{item.Name}}</ion-label>
+    <ion-range min="0" max="10" step="1" color="primary">
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">10</ion-label>
+    </ion-range> -->
+  </ion-item>
+</ion-list>
+<ion-button
+            type="submit"
+            color="primary"
+            expand="block" (click)="onSubmit()">
+           Submit
+</ion-button>
+</ion-content>

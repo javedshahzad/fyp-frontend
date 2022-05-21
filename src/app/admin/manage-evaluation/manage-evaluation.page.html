@@ -8,5 +8,32 @@
 </ion-header>
 
 <ion-content>
+  <div>
+    <ion-tab-bar  color="medium" class="segment-card">
+      <ion-tab-button class="segment-item" (click)="changeCourse(courseID=1)">
+        <ion-label class="segment-lable">
+          FYP 1
+        </ion-label>
+      </ion-tab-button>
+      <ion-tab-button class="segment-item" (click)="changeCourse(courseID=2)">
+        <ion-label class="segment-lable">
+          FYP 2
+        </ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </div>
+  <ion-grid>
 
+    <ion-item *ngFor="let review of allEvaluationData">
+      <ion-label position="floating">{{review.Name}}</ion-label>
+      <p>{{review.evDescription}}</p>
+      <p>{{review.sortNum}}</p>
+    </ion-item>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addEvaluation()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

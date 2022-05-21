@@ -21,34 +21,26 @@ export class ProjectdetailsPage implements OnInit {
   description: string;
   constructor(
     private modalController: ModalController,
-    private ActiveRoute:ActivatedRoute
+    private activeRoute: ActivatedRoute
   ) {
-      this.ActiveRoute.queryParams.subscribe((res:any)=>{
+      this.activeRoute.queryParams.subscribe((res: any)=>{
         console.log(res.data);
-            this.studName= res.data.profileName,
-            this.matrixNo= res.data.userName,
-            this.email= res.data.email,
-            this.phoneNum= res.data.phoneNum,
-            this.title= res.data.title,
-            this.topicType= res.data.topicTypeName,
-            this.skill= res.data.skill,
-            this.problemStmt= res.data.problemStmt,
-            this.objective= res.data.objective,
-            this.outcome= res.data.outcome,
-            this.description= res.data.description
-      })
+            this.studName= res.data.profileName;
+            this.matrixNo= res.data.userName;
+            this.email= res.data.email;
+            this.phoneNum= res.data.phoneNum;
+            this.title= res.data.title;
+            this.topicType= res.data.topicTypeName;
+            this.skill= res.data.skill;
+            this.problemStmt= res.data.problemStmt;
+            this.objective= res.data.objective;
+            this.outcome= res.data.outcome;
+            this.description= res.data.description;
+      });
    }
 
   ngOnInit() {
 
-  }
-  async dismissModal() {
-    // const onClosedData: string = "Wrapped Up!";
-     await this.modalController.dismiss(
-       {
-        // dismissed: true,
-       }
-     );
   }
 
 }

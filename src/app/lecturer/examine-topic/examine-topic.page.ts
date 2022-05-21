@@ -17,15 +17,16 @@ export class ExamineTopicPage implements OnInit {
     private alertCtrl: AlertController,
     public modalController: ModalController,
     public popOverController: PopoverController,
-    private nav:NavController
+    private nav: NavController
   ) { }
 
   ngOnInit() {
     this.getData();
   }
 getData(){
-
-  this.apiService.getData('https://fypmanagementbackend.in/ExamineTopic/read.php').subscribe((res: any)=>{
+  const formData =new FormData();
+        formData.append('lectID',localStorage.getItem('accountID'));
+  this.apiService.getDataByID('https://fypmanagementbackend.in/ExamineTopic/read.php',formData).subscribe((res: any)=>{
     console.log(res);
     if(res.err === false){
       this.allProject=res.data;
@@ -47,9 +48,6 @@ showEnrolAlert(projectID,studID){
         text: 'Cancel',
         id: 'cancel-button',
         handler: () => {
-        //  console.log('Confirm Okay');
-         //  this.nav.navigateBack('login');
-         //  localStorage.setItem('userGroupID','');
         }
       },
       {
@@ -99,7 +97,7 @@ showAlert(message: string) {
 
   async presentModal(projectData) {
     console.log(projectData);
-    this.nav.navigateForward('projectdetails',{queryParams:{data:projectData}})
+    this.nav.navigateForward('projectdetails',{queryParams:{data:projectData}});
   // const modal = await this.modalController.create({
   //   cssClass: 'my-custom-class',
   //   component: ModalPage,

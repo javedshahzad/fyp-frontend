@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -18,23 +18,26 @@ export class AssessmentPage implements OnInit {
   parameter: any;
   enrolID: string | Blob;
   filePath: any;
+  lectProjectID: any;
 
   constructor(
     private route: ActivatedRoute,
     // private router: Route,
     private apiService: ApiService,
     private alertCtrl: AlertController,
-    private activeRoute:ActivatedRoute,
-    private nav: NavController) {
-        this.activeRoute.queryParams.subscribe((res:any)=>{
+    private activeRoute: ActivatedRoute,
+    public navCtrl: NavController,
+    ) {
+        this.activeRoute.queryParams.subscribe((res: any)=>{
           console.log(res);
+          this.lectProjectID = res.data.lectProjectID;
           this.enrolID=res.data.enrolID;
           this.getAssessmentData(this.enrolID);
-        })
+        });
   }
 
   ngOnInit() {
-   
+
   }
 
   getAssessmentData(enrolID){
@@ -62,14 +65,14 @@ export class AssessmentPage implements OnInit {
     this.file = item.fileName;
     this.assessmentID=item.assessmentID;
     this.filePath=item.path;
-    console.log(this.filePath)
+    console.log(this.filePath);
   // this.supervisorComment = item.;
   // this.examinerComment='';
   // this.suApproval = '0';
   // this.exApproval = '0';
   }
   openfile(path){
-    window.open(path,'_blank')
+    window.open(path,'_blank');
   }
   getReview(assID){
     const formData =new FormData();
@@ -79,7 +82,7 @@ export class AssessmentPage implements OnInit {
       console.log(res);
       if(res.err === false){
         this.allAssessmentReviewData=res.data;
-        console.log(this.allAssessmentReviewData)
+        console.log(this.allAssessmentReviewData);
       }else{
         this.showAlert(res.message);
       }
@@ -87,52 +90,58 @@ export class AssessmentPage implements OnInit {
   }
 
 
-async giveReview(item){
-    console.log(item);
-      const alert = await this.alertCtrl.create({
-        cssClass: 'my-custom-class',
-        header: 'Please write your good opnion',
-        inputs: [
-          {
-            name: 'lectComment',
-            type: 'text',
-            placeholder: 'Please give your reviews'
-          },
-         
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: (data) => {
-              console.log(data);
-              const formData =new FormData();
-              formData.append('lectComment', data.lectComment);
-              formData.append('assessmentID', item.assessmentID);
-              formData.append('approvalID', '1');
-              this.apiService.postData('https://fypmanagementbackend.in/AssessmentReviewAPI/update.php',formData).subscribe((res:any)=>{
-                console.log(res);
-                if(res.err === false){
-                  this.showAlert(res.message);
-                }else{
-                  this.showAlert(res.message);
-                }
-              })
 
-            }
-          }
-        ]
-      });
-  
-      await alert.present();
-  
-  
+async giveReview(){
+  const item = {assessmentID:this.assessmentID,lectProjectID:this.lectProjectID};
+  // const formData =new FormData();
+  // console.log( this.assessmentID,this.lectProjectID);
+  // formData.append('assessmentID', this.assessmentID);
+  // formData.append('lectProjectID', this.lectProjectID);
+    await this.navCtrl.navigateForward('/lecturer/supervisor/assessment/review',{queryParams:{data:item}});
+      // const alert = await this.alertCtrl.create({
+      //   cssClass: 'my-custom-class',
+      //   header: 'Please write your good opnion',
+      //   inputs: [
+      //     {
+      //       name: 'lectComment',
+      //       type: 'text',
+      //       placeholder: 'Please give your reviews'
+      //     },
+
+      //   ],
+      //   buttons: [
+      //     {
+      //       text: 'Cancel',
+      //       role: 'cancel',
+      //       cssClass: 'secondary',
+      //       handler: () => {
+      //         console.log('Confirm Cancel');
+      //       }
+      //     }, {
+      //       text: 'Ok',
+      //       handler: (data) => {
+      //         console.log(data);
+      //         const formData =new FormData();
+      //         formData.append('lectComment', data.lectComment);
+      //         formData.append('assessmentID', this.assessmentID);
+      //         formData.append('approvalID', '1');
+      //         this.apiService.postData('https://fypmanagementbackend.in/AssessmentReviewAPI/update.php',formData).subscribe((res: any)=>{
+      //           console.log(res);
+      //           if(res.err === false){
+      //             this.showAlert(res.message);
+      //           }else{
+      //             this.showAlert(res.message);
+      //           }
+      //         });
+
+      //       }
+      //     }
+      //   ]
+      // });
+
+      // await alert.present();
+
+
 
 
     // if(this.assessmentID){

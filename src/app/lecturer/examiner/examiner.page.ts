@@ -23,7 +23,7 @@ export class ExaminerPage implements OnInit {
     // this.getSuperviseData();
   }
 
-  getSuperviseData(){
+  getExamineData(){
     this.roleID =1;
     this.lecturerID=localStorage.getItem('accountID');
     const formData =new FormData();
@@ -42,10 +42,10 @@ export class ExaminerPage implements OnInit {
 
   changeCourse(value){
     console.log(this.courseID);
-    this.getSuperviseData();
+    this.getExamineData();
   }
 
-  async openDetails(parameter: any) {
-    await this.navCtrl.navigateForward(['/lecturer/supervisor/assessment/${parameter.uid}'], { state: { parameter } });
+  async openDetails(item) {
+    await this.navCtrl.navigateForward('/lecturer/supervisor/assessment',{queryParams:{data:item}});
 }
 }

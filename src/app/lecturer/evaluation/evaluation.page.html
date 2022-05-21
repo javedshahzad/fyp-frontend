@@ -28,7 +28,7 @@
     Supervise
   </ion-label>
     <ion-list>
-      <ion-item-sliding *ngFor="let item of allSuProjectData"  (click)="presentModal(item)">
+      <ion-item-sliding *ngFor="let item of allSuProjectData"  (click)="evaluate(item)">
         <ion-item >
           <ion-label>
             <h2>Student Name</h2>
@@ -48,7 +48,7 @@
       Examine
     </ion-label>
     <ion-list>
-      <ion-item-sliding *ngFor="let item of allExProjectData"  (click)="presentModal(item)">
+      <ion-item-sliding *ngFor="let item of allExProjectData"  (click)="evaluate(item)">
         <ion-item >
           <ion-label>
             <h2>Student Name</h2>

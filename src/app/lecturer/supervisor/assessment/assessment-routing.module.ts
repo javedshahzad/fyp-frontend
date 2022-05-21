@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: AssessmentPage
+  },
+  {
+    path: 'review',
+    loadChildren: () => import('./review/review.module').then( m => m.ReviewPageModule)
   }
 ];
 

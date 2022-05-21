@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, NavController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-manage-evaluation',
@@ -7,9 +9,87 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageEvaluationPage implements OnInit {
 
-  constructor() { }
+  courseID;
+  allCourseData;
+  courseName='';
+  evaluationID: any;
+  allEvaluationData: any;
+  constructor(
+    private apiService: ApiService,
+    private alertCtrl: AlertController,
+    private nav: NavController,
+  ) { }
 
   ngOnInit() {
+    this.getCourseData();
   }
 
+  getCourseData(){
+    // const button = document.querySelector('ion-fab-button');
+    // button.addEventListener('click', this.addTopic);
+    this.apiService.getData('https://fypmanagementbackend.in/CourseAPI/read.php')
+    .subscribe((res: any) => {
+      console.log(res);
+      if(res.err === false){
+        this.allCourseData=res.data;
+      }else{
+        this.showAlert(res.message);
+      }
+    });
+  }
+
+
+  changeCourse(id){
+    this.courseID = id;
+    const formData =new FormData();
+    console.log(id);
+      formData.append('courseID', id);
+      this.apiService.getDataByID('https://fypmanagementbackend.in/EvaluationAPI/read.php', formData)
+      .subscribe((res: any) => {
+        console.log(res);
+        if(res.err === false){
+          this.allEvaluationData=res.data;
+          console.log(this.allEvaluationData);
+        }else{
+          this.showAlert(res.message);
+        }
+      });
+  }
+
+  // getReview(assID){
+  //   const formData =new FormData();
+  //   formData.append('assessmentID', assID);
+  //   this.apiService.getDataByID('https://fypmanagementbackend.in/AssessmentReviewAPI/read.php', formData)
+  //   .subscribe((res: any) => {
+  //     console.log(res);
+  //     if(res.err === false){
+  //       this.allAssessmentReviewData=res.data;
+  //     }else{
+  //       this.showAlert(res.message);
+  //     }
+  //   });
+  // }
+
+
+  addEvaluation(){
+    if(this.courseID){
+      this.nav.navigateForward('admin/manage-evaluation/add-evaluation',{queryParams:{courseID: this.courseID}});
+    }else{
+      this.showAlert('Please Select Course first');
+    }
+  }
+
+  getFile(){
+
+  }
+
+  private showAlert(message: string) {
+    this.alertCtrl
+      .create({
+        header: 'Message',
+        message,
+        buttons: ['Okay']
+      })
+      .then(alertEl => alertEl.present());
+  }
 }
