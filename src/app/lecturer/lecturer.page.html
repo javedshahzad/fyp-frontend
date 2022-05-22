@@ -9,5 +9,29 @@
 </ion-header>
 
 <ion-content>
-
-</ion-content>
+  <div>
+    <ion-tab-bar  color="medium" class="segment-card">
+      <ion-tab-button class="segment-item" (click)="changeCourse(courseID=1)">
+        <ion-label class="segment-lable">
+          FYP 1
+        </ion-label>
+      </ion-tab-button>
+      <ion-tab-button class="segment-item" (click)="changeCourse(courseID=2)">
+        <ion-label class="segment-lable">
+          FYP 2
+        </ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </div>
+  <ion-grid>
+      <ion-list>
+          <ion-item *ngFor="let item of assProgress">
+            <ion-label>
+              <h2>{{item.key}} ({{item.matric}})</h2>
+              <h2>{{item.percentage}}%</h2>
+              <ion-progress-bar value={{item.decimal}}></ion-progress-bar>
+            </ion-label>
+          </ion-item>
+      </ion-list>
+  </ion-grid>
+</ion-content>`

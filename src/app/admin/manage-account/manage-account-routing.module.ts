@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: ManageAccountPage
+  },
+  {
+    path: 'add-account',
+    loadChildren: () => import('./add-account/add-account.module').then( m => m.AddAccountPageModule)
+  },
+  {
+    path: 'update-account',
+    loadChildren: () => import('./update-account/update-account.module').then( m => m.UpdateAccountPageModule)
   }
 ];
 

@@ -62,39 +62,6 @@ export class RegisterPage implements OnInit {
     //   }
   }
 
-  // authenticate(profilename: string, username: string,
-  //   email: string, password: string, telnum: string, major: number,
-  //   supervisor: number, cosupervisor: number, topicType: number,
-  //    title: string, skill: string, problemstmt: string, objective: string, outcome: string, description: string) {
-  //   this.isLoading = true;
-  //   this.loadingCtrl
-  //     .create({ keyboardClose: true, message: 'Logging in...' })
-  //     .then(loadingEl => {
-  //       loadingEl.present();
-  //       this.registerService.signup(profilename, username, email,
-  //         password, telnum, major, supervisor, cosupervisor,
-  //         topicType, title, skill, problemstmt, objective, outcome, description).subscribe(
-  //         resData => {
-  //           console.log(resData);
-  //           this.isLoading = false;
-  //           loadingEl.dismiss();
-  //           this.router.navigateByUrl('/places/tabs/discover');
-  //         },
-  //         errRes => {
-  //           loadingEl.dismiss();
-  //           const code = errRes.error.error.message;
-  //           let message = 'Could not sign you up, please try again.';
-  //           if (code === 'EMAIL_EXISTS') {
-  //             message = 'This username exists already!';
-  //           }
-  //           this.showAlert(message);
-  //         }
-  //       );
-  //     });
-  // }
-  // onSwitchAuthMode() {
-  //   this.isLogin = !this.isLogin;
-  // }
   newUser(): void {
     this.submitted = false;
     this.user = new User();

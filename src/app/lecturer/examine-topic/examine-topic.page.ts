@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LoadingController, AlertController, ModalController, IonItem, PopoverController, NavController } from '@ionic/angular';
-import { ModalPage } from 'src/app/modal/modal.page';
 
 @Component({
   selector: 'app-examine-topic',

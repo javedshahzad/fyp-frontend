@@ -9,46 +9,96 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-item>
-    <ion-label>
-      <h5>Title</h5>
-      <p slot="end">{{allStudentData.title}}</p>
+  <ion-label class="labelstyle ion-text-center">Student Project Details</ion-label>
+    <div *ngFor="let item of allStudentData">
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <h5>Title</h5>
+          </ion-label>
+          <ion-label>
+            <p>{{item.title}}</p>
+          </ion-label>
+         </ion-item>
+         <ion-item>
+          <ion-label>
+            <h5>Topic Type</h5>
+          </ion-label>
+          <!-- <ion-label> -->
+            <p>{{item.topicTypeName}}</p>
+          <!-- </ion-label> -->
+         </ion-item>
+         <ion-item *ngFor="let lect of lecturerType">
+           <ion-label>
+             <h5>{{lect.roleName}}</h5>
+            </ion-label>
+           <p>{{lect.profileName}}</p>
+         </ion-item>
+         <ion-item>
+           <ion-label>
+             <h5>IsApproved</h5>
+           </ion-label>
+            <p>
+              <span *ngIf="item.haveApprove ==='0'" style="color: red;">No</span>
+              <span *ngIf="item.haveApprove ==='1'" style="color: green;">Yes</span>
+            </p>
+         </ion-item>
+         <ion-row>
+           <ion-col size="12">
+            <ion-label>
+              <h5>Skills:</h5>
+            </ion-label>
+              <p>{{item.skill}}</p>
+              <div class="boder"></div>
+           </ion-col>
+         </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>
+                <h5>Problem Statement:</h5>
+              </ion-label>
+                <p>{{item.problemStmt}}</p>
+                <div class="boder"></div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>
+                <h5>Objective:</h5>
+               </ion-label>
+                <p>{{item.objective}}</p>
+                <div class="boder"></div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>
+                <h5>Outcome:</h5>
+              </ion-label>
+                <p>{{item.outcome}}</p>
+                <div class="boder"></div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>
+                <h5>Description: </h5>
+               </ion-label>
+                <p>{{item.description}}</p>
+                <div class="boder"></div>
+            </ion-col>
+          </ion-row>
+      </ion-list>
+    </div>
+    <ion-label class="labelstyle ion-text-center">Assessments
     </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Topic Type</h5>
-      <p slot="end">{{allStudentData.topicTypeName}}</p>
-    </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Skills</h5>
-      <p slot="end">{{allStudentData.skill}}</p>
-    </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Problem Statement</h5>
-      <p slot="end">{{allStudentData.problemStmt}}</p>
-    </ion-label>
-   </ion-item>
-   <ion-item>
-   <ion-label>
-    <h5>Objective</h5>
-    <p slot="end">{{allStudentData.objective}}</p>
-   </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Outcome</h5>
-      <p slot="end">{{allStudentData.outcome}}</p>
-    </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Description</h5>
-      <p slot="end">{{allStudentData.description}}</p>
-    </ion-label>
-   </ion-item> -->
+    <div class="assessment" *ngFor="let item of assProgress">
+      <ion-list>
+        <ion-list-header>
+          <h2>{{item.key}}  ({{item.percentage}}%)</h2>
+
+        </ion-list-header>
+        <ion-progress-bar value={{item.decimal}}></ion-progress-bar>
+      </ion-list>
+    </div>
 </ion-content>

@@ -56,22 +56,28 @@
       <p slot="end">{{problemStmt}}</p>
     </ion-label>
    </ion-item>
-   <ion-item>
-   <ion-label>
-    <h5>Objective</h5>
-    <p slot="end">{{objective}}</p>
-   </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Outcome</h5>
-      <p slot="end">{{outcome}}</p>
-    </ion-label>
-   </ion-item>
-   <ion-item>
-    <ion-label>
-      <h5>Description</h5>
-      <p slot="end">{{description}}</p>
-    </ion-label>
-   </ion-item>
+  <ion-row>
+    <ion-col>
+      <ion-label>
+        <h5>Objective</h5>
+       </ion-label>
+       <p>{{objective}}</p>
+      </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-label>
+        <h5>Outcome</h5>
+      </ion-label>
+      <p>{{outcome}}</p>
+    </ion-col>
+  </ion-row>
+   <ion-row>
+     <ion-col>
+      <ion-label>
+        <h5>Description</h5>
+      </ion-label>
+      <p>{{description}}</p>
+     </ion-col>
+   </ion-row>
 </ion-content>

@@ -38,6 +38,7 @@ export class AppComponent  implements OnInit{
       this.loadMenu();
       this.userName=localStorage.getItem('userName');
     });
+    localStorage.setItem('projectID','0');
     if(this.authProvider.isAdmin()){
       this.navCtrl.navigateForward('admin');
     }else if(this.authProvider.isLecturer()){

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>View Assessment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+    <ion-item *ngFor="let item of allAssessment" >
+      <ion-label>
+        <h2>Name</h2>
+        <h2>Submit</h2>
+      </ion-label>
+      <ion-label >
+        <p>{{item.profileName}}</p>
+        <p>{{item.topicTypeName}}</p>
+        <p>
+          <span *ngIf="item.isSubmit ==='0'" style="color: red;">No</span>
+          <span *ngIf="item.isSubmit ==='1'" style="color: green;">Yes</span>
+        </p>
+      </ion-label>
+    </ion-item>
+</ion-list>
+</ion-content>

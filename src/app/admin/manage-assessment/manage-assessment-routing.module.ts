@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ManageAssessmentPage
+  },
+  {
+    path: 'view-assessment',
+    loadChildren: () => import('./view-assessment/view-assessment.module').then( m => m.ViewAssessmentPageModule)
   }
 ];
 

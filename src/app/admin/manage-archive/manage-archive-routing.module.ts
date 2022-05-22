@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ManageArchivePage
+  },
+  {
+    path: 'add-archive',
+    loadChildren: () => import('./add-archive/add-archive.module').then( m => m.AddArchivePageModule)
   }
 ];
 

@@ -4,10 +4,28 @@
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
     <ion-title>Profile</ion-title>
+    <p slot="end" (click)="changePassword()">Change Password</p>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-item>
+        <ion-label>
+        <h4>Profile Name:</h4>
+        </ion-label>
+        <p>{{profileName}}</p>
+    </ion-item>
+   <ion-item>
+      <ion-label>
+        <h4>Username:</h4>
+      </ion-label>
+      <p>{{userName}}</p>
+   </ion-item>
+  <ion-item>
+    <ion-label>
+      <h4>Email:</h4>
+    </ion-label>
+    <p>{{email}}</p>
+  </ion-item>     
 </ion-content>
 

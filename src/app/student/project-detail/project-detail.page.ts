@@ -12,44 +12,48 @@ import { LoadingController, AlertController } from '@ionic/angular';
   styleUrls: ['./project-detail.page.scss'],
 })
 export class ProjectDetailPage implements OnInit {
-  topic=[];
+  // topic=[];
   lecturers;
   selectLecturer;
   selectTopicType;
   lectID;
   topicID;
   topicTypeID;
+  groupType;
   titleList;
+  allTopicTypeData;
   public projectForm: FormGroup;
   lecturerID: any;
   topicByLecturer: any=[];
   formValues: any={};
   tittles: any=[];
+  isDisble=true;
   constructor(private projectDetailService: ProjectDetailService,
     private alertCtrl: AlertController
-    ) { }
+    ) {
+
+    }
 
   ngOnInit() {
-    console.log(localStorage.accountID);
+    console.log(localStorage.getItem('projectID'));
+    if(localStorage.getItem('projectID') === '0'){
+    this.isDisble=false;
+    }else{
+      this.isDisble=true;
+    }
 
-    this.projectDetailService.getTopic()
-      .subscribe(data => {
-        console.log(data);
-        this.topic=data;
-        this.lecturers= _.groupBy(this.topic,'lectName');
-
-      console.log(this.lecturers);
-        console.log(this.topic);
-      }, error => console.log(error));
+    this.projectDetailService.getLecturer()
+    .subscribe((res: any)=>{
+      console.log(res);
+      if(res.err === false){
+        this.lecturers=res.data;
+      }else{
+        this.showAlert(res.message);
+      }
+    });
   }
   save(form) {
     console.log(form);
-    // this.registerService
-    // .createUser(form)
-    // .subscribe(data => {
-    //   this.user = new User();
-    // },
-    // error => console.log(error));
   }
 
   onSubmit(form: NgForm) {
@@ -88,6 +92,7 @@ export class ProjectDetailPage implements OnInit {
       console.log(res);
       if(res.err === false){
         this.topicByLecturer=res.data;
+        // this.groupTopicType(this.topicByLecturer);
       }else{
         this.showAlert(res.message);
       }
@@ -95,12 +100,23 @@ export class ProjectDetailPage implements OnInit {
 
   }
 
+  groupTopicType(data){
+  //   const result = this.topicByLecturer.reduce(function (r, a) {
+  //     r[a.topicTypeID] = r[a.topicTypeID] || [];
+  //     r[a.topicTypeID].push(a);
+  //     return r;
+  const result = _.findAll(this.topicByLecturer, function(o) { return o.topicTypeID ===data; });
+
+console.log(result);
+
+  }
+
   selectedTopicType(event){
     this.topicTypeID=event.target.value;
     console.log(this.topicTypeID);
+    // this.groupTopicType(event.target.value);
     this.tittles.push(this.topicByLecturer.find(e =>e.topicTypeID === this.topicTypeID));
     console.log(this.tittles);
-
   }
   selectedTittles(ev){
     console.log(ev.target.value);

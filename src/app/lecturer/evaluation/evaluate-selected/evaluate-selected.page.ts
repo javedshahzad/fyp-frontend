@@ -17,6 +17,7 @@ export class EvaluateSelectedPage implements OnInit {
   lectProjectID;
   lectID;
   enrolID;
+  roleIDS;
   studentName;
   topicTypeID;
   majorID;
@@ -25,7 +26,7 @@ export class EvaluateSelectedPage implements OnInit {
   skill;
   description;
   roleID;
-  allEvaluationData:any=[];
+  allEvaluationData: any=[];
   fypmark;
   mark=[];
   sub1: any;
@@ -41,7 +42,7 @@ export class EvaluateSelectedPage implements OnInit {
     private alertCtrl: AlertController,
     private activeRoute: ActivatedRoute,
     public navCtrl: NavController,
-    private loadingService:LoadingService
+    private loadingService: LoadingService
   ) {
     this.activeRoute.queryParams.subscribe((res: any)=>{
       console.log(res);
@@ -58,7 +59,11 @@ export class EvaluateSelectedPage implements OnInit {
       this.roleID= res.data.roleID;
       this.projectID=res.data.projectID;
 
-
+      // if(this.roleIDS===0){
+      //   this.roleID=1;
+      // }else{
+      //   this.roleID=0;
+      // }
       this.getEvaluationData(this.courseID);
     });
   }
@@ -85,7 +90,7 @@ export class EvaluateSelectedPage implements OnInit {
 
   onChange(event,item){
     console.log(event.target.value);
-    console.log(item)
+    console.log(item);
     switch (item.sortNum) {
       case '1':
         this.sub1=event.target.value;
@@ -119,12 +124,12 @@ export class EvaluateSelectedPage implements OnInit {
   if(this.sub1+this.sub2+this.sub3+this.sub4+this.sub5+this.sub6){
     console.log(this.sub1+this.sub2+this.sub3+this.sub4+this.sub5+this.sub6);
     const numEvaluation = this.allEvaluationData.length;
-    let sum = this.sub1+this.sub2+this.sub3+this.sub4+this.sub5+this.sub6;
+    const sum = this.sub1+this.sub2+this.sub3+this.sub4+this.sub5+this.sub6;
      this.fypmark= (sum*100)/(numEvaluation*10);
     console.log(this.fypmark);
     this.sendEvaluationData();
   }else{
-    this.showAlert('Please give numbers to all subjects')
+    this.showAlert('Please give numbers to all subjects');
   }
 
   }
@@ -149,6 +154,8 @@ export class EvaluateSelectedPage implements OnInit {
     formData.append('studName',  this.studentName);
     formData.append('projectID',  this.projectID);
     formData.append('enrolID',  this.enrolID);
+
+    console.log(this.roleID);
 
     this.apiService.postData('https://fypmanagementbackend.in/studentEvaluationAPI/update.php',formData).subscribe((res: any)=>{
       console.log(res);

@@ -23,12 +23,18 @@
     </ion-tab-bar>
   </div>
   <ion-grid>
-
-    <ion-item *ngFor="let review of allEvaluationData">
-      <ion-label position="floating">{{review.Name}}</ion-label>
-      <p>{{review.evDescription}}</p>
-      <p>{{review.sortNum}}</p>
-    </ion-item>
+    <ion-item-sliding  *ngFor="let review of allEvaluationData">
+      <ion-item >
+        <ion-label position="floating">{{review.Name}}</ion-label>
+        <p>{{review.evDescription}}</p>
+        <p>{{review.sortNum}}</p>
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-item-option color="secondary" expandable (click)="delete(review.evaluationID)">
+         Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addEvaluation()">

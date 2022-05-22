@@ -42,19 +42,14 @@ export class AuthPage implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
+  ionViewDidEnter(): void {
+    this.menuCtrl.enable(false);
+  }
 
-  // authenticate(username: string, password: string) {
-  //   this.isLoading = true;
-  //   this.authService.login();
-  //   this.loadingCtrl
-  //     .create({ keyboardClose: true, message: 'Logging in...' })
-  //     .then(loadingEl => {
-  //       loadingEl.present();
+  ionViewDidLeave(): void {
+    this.menuCtrl.enable(true);
+  }
 
-  //           // this.showAlert(message);
-  //         }
-  //       );
-  // }
 
   validateEmail(email) {
     return String(email)
@@ -85,6 +80,7 @@ export class AuthPage implements OnInit {
     console.log(this.user);
     this.authProvider.loginData('https://fypmanagementbackend.in/AccountAPI/login.php', fD).subscribe((resp: any) => {
         const response = resp.response[0];
+        if (response.status) {
         this.userData = response.detail;
         console.log(this.userData);
         console.log(this.userData?.userName);
@@ -97,21 +93,17 @@ export class AuthPage implements OnInit {
         localStorage.setItem('email', res.email);
         localStorage.setItem('userName', res.userName);
         localStorage.setItem('userGroupID', res.userGroupID);
-        console.log( res.userGroupID)
+        console.log( res.userGroupID);
         // console.log(localStorage);
         this.api.isupdateLogin.next(true);
-        if (response.status) {
-          const res = this.userData;
-          this.authProvider.login(res.userGroupID, res.userName, res.profileName, res.accountID, res.majorID,
-            res.majorName, res.phoneNUm, res.email).then(success => {
+        // if (response.status) {
+          const data = this.userData;
+          this.authProvider.login(data.userGroupID, data.userName, data.profileName, data.accountID, data.majorID,
+            data.majorName, data.phoneNUm, data.email).then(success => {
             if (success) {
-            
-              // this.router.navigateByUrl('/menu');
+
             }
           });
-          //  localStorage.setItem('accountID',res.accountID);
-          //  localStorage.setItem('userName',res.userName);
-          //  this.router.navigateByUrl('/menu');
 
         } else {
 

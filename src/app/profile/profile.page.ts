@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { AuthProvider } from 'src/providers/auth/auth';
 
 @Component({
@@ -7,15 +8,21 @@ import { AuthProvider } from 'src/providers/auth/auth';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  public profileName = '';
-  public majorName = '';
-  public email= '';
+  profileName = '';
+  majorName = '';
+  email= '';
+  userName;
 
-  constructor( private authProvider: AuthProvider) { }
+
+  constructor( private authProvider: AuthProvider,private nav:NavController) { }
 
   ngOnInit() {
-    this.profileName = localStorage.profileName;
+    this.profileName = localStorage.getItem('profileName');
+    this.email = localStorage.getItem('email');
+    this.userName= localStorage.getItem('userName');
 
   }
-
+  changePassword(){
+    this.nav.navigateForward('changepassword');
+  }
 }

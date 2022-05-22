@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { LoadingController, AlertController, ModalController, IonItem } from '@ionic/angular';
-import { ModalPage } from 'src/app/modal/modal.page';
+import { LoadingController, AlertController, ModalController, IonItem, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -17,6 +16,7 @@ export class StudentApplicationPage implements OnInit {
     private apiService: ApiService,
     private alertCtrl: AlertController,
     public modalController: ModalController,
+    private nav: NavController
   ) { }
 
   ngOnInit() {
@@ -100,7 +100,7 @@ this.alertCtrl.create({
      handler: () => {
       const formData =new FormData();
       formData.append('projectID', projectID);
-      this.apiService.postData('https://fypmanagementbackend.in/studentApplicationAPI/readByLecturerID.php',
+      this.apiService.postData('https://fypmanagementbackend.in/ProjectAPI/delete.php',
       formData).subscribe((res: any)=>{
         console.log(res);
           if(res.err === false){
@@ -119,7 +119,7 @@ this.alertCtrl.create({
 showAlert(message: string) {
   this.alertCtrl
     .create({
-      header: 'Created success',
+      header: 'Alert Message',
       message,
       backdropDismiss:false,
       buttons: [
@@ -138,6 +138,8 @@ showAlert(message: string) {
 }
 
 async presentModal(projectData) {
+  console.log(projectData);
+  this.nav.navigateForward('projectdetails',{queryParams:{data:projectData}});
 // //   console.log(projectData);
 // // const modal = await this.modalController.create({
 // //   cssClass: 'my-custom-class',

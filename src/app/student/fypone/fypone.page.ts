@@ -17,6 +17,7 @@ export class FyponePage implements OnInit {
   file = '';
   assessmentID: any='';
   filePath: any;
+  assesmentData: any;
 
   constructor(
     private apiService: ApiService,
@@ -51,6 +52,7 @@ export class FyponePage implements OnInit {
   selectedAssessment(item){
     this.getReview(item.assessmentID);
     console.log(item);
+    this.assesmentData=item;
     this.assessmentName = item.assessmentName;
     this.file = item.fileName;
     this.assessmentID=item.assessmentID;
@@ -81,7 +83,7 @@ export class FyponePage implements OnInit {
 
   uploadFile(){
     if(this.assessmentID){
-      this.nav.navigateForward('uploadfile',{queryParams:{assessmentID: this.assessmentID}});
+      this.nav.navigateForward('uploadfile',{queryParams:{assessmentID: this.assessmentID,data:this.assesmentData}});
     }else{
       this.showAlert('Please select project first');
     }

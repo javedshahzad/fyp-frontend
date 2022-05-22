@@ -38,6 +38,36 @@ export class ManageEvaluationPage implements OnInit {
     });
   }
 
+  delete(id){
+    this.showDeleteAlert(id);
+  }
+  showDeleteAlert(evaluationID){
+    this.alertCtrl.create({
+      header:'Are you Sure to Delete?',
+      backdropDismiss:false,
+      buttons: [
+        {
+         text: 'Okay',
+         id: 'confirm-button',
+         handler: () => {
+          const formData =new FormData();
+          formData.append('evaluationID', evaluationID);
+          this.apiService.postData('https://fypmanagementbackend.in/EvaluationAPI/delete.php',
+          formData).subscribe((res: any)=>{
+            console.log(res);
+              if(res.err === false){
+                this.showAlert(res.message);
+              }else{
+                this.showAlert(res.message);
+              }
+          });
+         }
+       }
+     ]
+    })
+    .then(alertEl => alertEl.present());
+    }
+
 
   changeCourse(id){
     this.courseID = id;

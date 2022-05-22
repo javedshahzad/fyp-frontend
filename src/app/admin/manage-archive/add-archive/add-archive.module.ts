@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ModalPageRoutingModule } from './modal-routing.module';
+import { AddArchivePageRoutingModule } from './add-archive-routing.module';
 
-import { ModalPage } from './modal.page';
+import { AddArchivePage } from './add-archive.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalPageRoutingModule
+    AddArchivePageRoutingModule
   ],
-  declarations: [ModalPage],
-
+  declarations: [AddArchivePage]
 })
-export class ModalPageModule {}
+export class AddArchivePageModule {}

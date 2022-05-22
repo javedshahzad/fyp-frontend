@@ -39,16 +39,8 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'menu',
-    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
-  },
-  {
     path: 'search-archive',
     loadChildren: () => import('./search-archive/search-archive.module').then( m => m.SearchArchivePageModule)
-  },
-  {
-    path: 'modal',
-    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   },
   {
     path: 'uploadfile',
@@ -61,6 +53,10 @@ const routes: Routes = [
    {
     path: 'addtopic',
     loadChildren: () => import('./addtopic/addtopic.module').then( m => m.AddtopicPageModule)
+  },
+  {
+    path: 'changepassword',
+    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
   },
 ];
 

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ModalPage } from './modal.page';
+import { AddArchivePage } from './add-archive.page';
 
-describe('ModalPage', () => {
-  let component: ModalPage;
-  let fixture: ComponentFixture<ModalPage>;
+describe('AddArchivePage', () => {
+  let component: AddArchivePage;
+  let fixture: ComponentFixture<AddArchivePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalPage ],
+      declarations: [ AddArchivePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModalPage);
+    fixture = TestBed.createComponent(AddArchivePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

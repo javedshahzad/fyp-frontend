@@ -12,8 +12,8 @@ export class ProjectDetailService {
 
   constructor(private http: HttpClient) { }
 
-  getTopic(): Observable<Topic[]> {
-    return this.http.get<Topic[]>('https://fypmanagementbackend.in/TopicAPI/read.php');
+  getLecturer(): Observable<Topic[]> {
+    return this.http.get<Topic[]>('https://fypmanagementbackend.in/AccountAPI/readLect.php');
   }
 
   createProject(){
