@@ -11,7 +11,7 @@ export class AddArchivePage implements OnInit {
   studName;
   title;
   year;
-  file;
+  file: any;
   allTopicType = [];
   topicTypeID: any;
   constructor(

@@ -18,6 +18,7 @@ export class ManageArchivePage implements OnInit {
   ngOnInit() {
     this.getArchiveData();
   }
+
   delete(id){
     this.showDeleteAlert(id);
   }

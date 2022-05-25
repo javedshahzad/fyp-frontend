@@ -56,6 +56,8 @@ export class StudentPage implements OnInit {
 
       }else{
         this.showAlert(res.message);
+        this.projectID='0';
+        localStorage.setItem('projectID',this.projectID);
       }
     });
   }

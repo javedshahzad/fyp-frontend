@@ -72,13 +72,13 @@ export class EvaluateSelectedPage implements OnInit {
   }
 
   getEvaluationData(id){
-    this.loadingService.showLoader();
+    // this.loadingService.showLoader();
     const formData =new FormData();
     formData.append('courseID',id);
     this.apiService.getDataByID('https://fypmanagementbackend.in/EvaluationAPI/read.php', formData)
     .subscribe((res: any) => {
       console.log(res);
-      this.loadingService.hideLoader();
+      // this.loadingService.hideLoader();
       if(res.err === false){
         this.allEvaluationData=_.sortBy(res.data,['sortNum']);
         console.log(this.allEvaluationData);

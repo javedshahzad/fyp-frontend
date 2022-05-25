@@ -57,14 +57,14 @@ export class FyponePage implements OnInit {
     this.file = item.fileName;
     this.assessmentID=item.assessmentID;
     this.filePath=item.path;
-    console.log(this.filePath)
+    console.log(this.filePath);
   // this.supervisorComment = item.;
   // this.examinerComment='';
   // this.suApproval = '0';
   // this.exApproval = '0';
   }
   openfile(){
-    window.open(this.filePath,'_blank')
+    window.open(this.filePath,'_blank');
   }
   getReview(assID){
     const formData =new FormData();

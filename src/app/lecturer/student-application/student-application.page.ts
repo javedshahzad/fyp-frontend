@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LoadingController, AlertController, ModalController, IonItem, NavController } from '@ionic/angular';
+import { throwIfEmpty } from 'rxjs/operators';
 
 
 @Component({
@@ -30,6 +31,8 @@ getData(){
     console.log(res);
     if(res.err === false){
       this.allApplications=res.data;
+    }else{
+      this.showAlert(res.message);
     }
   });
 }
@@ -37,16 +40,6 @@ getData(){
 approve(projectID){
 console.log(projectID);
 this.showApproveAlert(projectID);
-// const formData =new FormData();
-//   formData.append('projectID', projectID);
-//   this.apiService.postData('https://fypmanagementbackend.in/studentApplicationAPI/readByLecturerID.php',formData).subscribe((res: any)=>{
-//     console.log(res);
-//       if(res.err === false){
-//         this.showAlert(res.message);
-//       }else{
-//         this.showAlert(res.message);
-//       }
-//   });
 }
 
 reject(projectID){
@@ -140,27 +133,5 @@ showAlert(message: string) {
 async presentModal(projectData) {
   console.log(projectData);
   this.nav.navigateForward('projectdetails',{queryParams:{data:projectData}});
-// //   console.log(projectData);
-// // const modal = await this.modalController.create({
-// //   cssClass: 'my-custom-class',
-// //   component: ProjectdetailsPage,
-// //   componentProps: {
-// //     studName: projectData.profileName,
-// //     matrixNo: projectData.userName,
-// //     email: projectData.email,
-// //     phoneNum: projectData.phoneNum,
-// //     title: projectData.title,
-// //     topicType: projectData.topicTypeName,
-// //     skill: projectData.skill,
-// //     problemStmt: projectData.problemStmt,
-// //     objective: projectData.objective,
-// //     outcome: projectData.outcome,
-// //     description: projectData.description
-// //   }
-// });
-
-// if(modal){
-//   return await modal.present();
-// }
 }
 }

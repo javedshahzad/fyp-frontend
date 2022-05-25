@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -14,11 +14,10 @@ export class AddtopicPage implements OnInit {
   topicTypeID: any;
   lectID: any;
   customAlertOptions: any = {
-    header: 'Select Title',
+    header: 'Select Topic Type',
   };
   constructor(
-    private modalController: ModalController,
-    // private navParams: NavParams,
+
     private apiService: ApiService,
     private alertCtrl: AlertController,
   ) {
@@ -36,14 +35,6 @@ export class AddtopicPage implements OnInit {
       }
     });
   }
-  //  async dismissModal() {
-  //   // const onClosedData: string = "Wrapped Up!";
-  //    await this.modalController.dismiss(
-  //      {
-  //       dismissed: true,
-  //      }
-  //    );
-  // }
 
   onSubmit() {
     this.lectID=localStorage.getItem('accountID');
@@ -74,9 +65,6 @@ export class AddtopicPage implements OnInit {
           {
            text: 'Okay',
            handler: () => {
-           //  console.log('Confirm Okay');
-            //  this.nav.navigateBack('login');
-            //  localStorage.setItem('userGroupID','');
            }
          }
        ]

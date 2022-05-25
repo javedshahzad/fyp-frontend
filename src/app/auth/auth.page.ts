@@ -66,17 +66,7 @@ export class AuthPage implements OnInit {
     if (this.validateEmail(this.user.userName)) {
       fD.append('isEmail', JSON.stringify(true));
     }
-    /* this.httpClient.post(`https://fypmanagementbackend.in/AccountAPI/login.php`, fD).subscribe(res => {
-       const response = res['response'][0];
-       if (response.status) {
-         console.log(res);
-       } else {
-         this.showAlert(response.desc);
-         console.log(res);
-       }
-     }, err => {
-       this.showAlert('We did not find any user');
-     });*/
+
     console.log(this.user);
     this.authProvider.loginData('https://fypmanagementbackend.in/AccountAPI/login.php', fD).subscribe((resp: any) => {
         const response = resp.response[0];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { LoadingService } from 'src/app/services/loading.service';
 
@@ -19,7 +19,8 @@ export class EvaluationPage implements OnInit {
   constructor(
     private apiService: ApiService,
     public navCtrl: NavController,
-    private loadingService:LoadingService
+    private loadingService: LoadingService,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -28,7 +29,7 @@ export class EvaluationPage implements OnInit {
   }
 
   getSuperviseData(){
-    this.loadingService.showLoader();
+    // this.loadingService.showLoader();
     this.roleIDS =0;
     this.lecturerID=localStorage.getItem('accountID');
     const formData =new FormData();
@@ -37,17 +38,18 @@ export class EvaluationPage implements OnInit {
     formData.append('roleID', this.roleIDS);
     this.apiService.postData('https://fypmanagementbackend.in/EvaluationAPI/getStudent.php',formData).subscribe((res: any)=>{
       console.log(res);
-      this.loadingService.hideLoader();
+      // this.loadingService.hideLoader();
       if(res.err === false){
         this.allSuProjectData=res.data;
       }else{
         this.allSuProjectData=[];
+        this.showAlert(res.message);
       }
     });
   }
 
   getExamineData(){
-    this.loadingService.showLoader();
+    // this.loadingService.showLoader();
     this.roleIDE =1;
     this.lecturerID=localStorage.getItem('accountID');
     const formData =new FormData();
@@ -56,7 +58,7 @@ export class EvaluationPage implements OnInit {
     formData.append('roleID', this.roleIDE);
     this.apiService.postData('https://fypmanagementbackend.in/EvaluationAPI/getStudent.php',formData).subscribe((res: any)=>{
       console.log(res);
-      this.loadingService.hideLoader();
+      // this.loadingService.hideLoader();
       if(res.err === false){
         this.allExProjectData=res.data;
       }else{
@@ -69,6 +71,27 @@ export class EvaluationPage implements OnInit {
     console.log(this.courseID);
     this.getSuperviseData();
     this.getExamineData();
+  }
+
+  showAlert(message: string) {
+    this.alertCtrl
+      .create({
+        header: 'Alert Message',
+        message,
+        backdropDismiss:false,
+        buttons: [
+          {
+           text: 'Okay',
+           id: 'confirm-button',
+           handler: () => {
+           //  console.log('Confirm Okay');
+            //  this.nav.navigateBack('login');
+            //  localStorage.setItem('userGroupID','');
+           }
+         }
+       ]
+      })
+      .then(alertEl => alertEl.present());
   }
 
   async evaluate(item){

@@ -9,16 +9,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-label class="labelstyle ion-text-center">Student Project Details</ion-label>
+  <ion-item>
+    <ion-row>
+      <ion-label class="labelstyle ion-text-center">Student Project Details</ion-label>
+    </ion-row>
+  </ion-item>
     <div *ngFor="let item of allStudentData">
       <ion-list>
         <ion-item>
           <ion-label>
             <h5>Title</h5>
           </ion-label>
-          <ion-label>
+          <!-- <ion-label> -->
             <p>{{item.title}}</p>
-          </ion-label>
+          <!-- </ion-label> -->
          </ion-item>
          <ion-item>
           <ion-label>
@@ -90,13 +94,15 @@
           </ion-row>
       </ion-list>
     </div>
-    <ion-label class="labelstyle ion-text-center">Assessments
-    </ion-label>
+    <ion-item>
+      <ion-row>
+        <ion-label class="labelstyle ion-text-center">Assessments</ion-label>
+      </ion-row>
+    </ion-item>
     <div class="assessment" *ngFor="let item of assProgress">
       <ion-list>
         <ion-list-header>
           <h2>{{item.key}}  ({{item.percentage}}%)</h2>
-
         </ion-list-header>
         <ion-progress-bar value={{item.decimal}}></ion-progress-bar>
       </ion-list>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { FormGroup, NgForm } from '@angular/forms';
 import { ProjectDetailService } from './project-detail.service';
 import * as _ from 'lodash';
 
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -27,19 +28,27 @@ export class ProjectDetailPage implements OnInit {
   topicByLecturer: any=[];
   formValues: any={};
   tittles: any=[];
-  isDisble=true;
+  isDisble;
+  id;
+  allTopic;
+  userProfileName: any;
+  userAccountId: string;
+  userEmail;
   constructor(private projectDetailService: ProjectDetailService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private apiService: ApiService,
+    public nav: NavController
     ) {
 
     }
 
   ngOnInit() {
     console.log(localStorage.getItem('projectID'));
-    if(localStorage.getItem('projectID') === '0'){
-    this.isDisble=false;
+    this.id=localStorage.getItem('projectID');
+    if(this.id !== '0'){
+    this.isDisble=true;
     }else{
-      this.isDisble=true;
+      this.isDisble=false;
     }
 
     this.projectDetailService.getLecturer()
@@ -77,7 +86,7 @@ export class ProjectDetailPage implements OnInit {
     this.projectDetailService.postData('https://fypmanagementbackend.in/ProjectAPI/create.php',formData).subscribe((res: any)=>{
       console.log(res);
       if(res.err === false){
-        this.showAlert(res.message);
+        this.sendMail();
       }else{
         this.showAlert(res.message);
       }
@@ -91,8 +100,8 @@ export class ProjectDetailPage implements OnInit {
     this.projectDetailService.postData('https://fypmanagementbackend.in/TopicAPI/readOnlyLecturer.php',formData).subscribe((res: any)=>{
       console.log(res);
       if(res.err === false){
-        this.topicByLecturer=res.data;
-        // this.groupTopicType(this.topicByLecturer);
+        this.titleList=res.data;
+        this.groupTopicType();
       }else{
         this.showAlert(res.message);
       }
@@ -100,23 +109,32 @@ export class ProjectDetailPage implements OnInit {
 
   }
 
-  groupTopicType(data){
-  //   const result = this.topicByLecturer.reduce(function (r, a) {
-  //     r[a.topicTypeID] = r[a.topicTypeID] || [];
-  //     r[a.topicTypeID].push(a);
-  //     return r;
-  const result = _.findAll(this.topicByLecturer, function(o) { return o.topicTypeID ===data; });
+  groupTopicType(){
+    this.allTopic = this.titleList.reduce(function(r, a) {
+      r[a.topicTypeID] = r[a.topicTypeID] || [];
+      r[a.topicTypeID].push(a);
+      return r;
+  }, Object.create(null));
 
-console.log(result);
+  this.topicByLecturer = _(this.allTopic).map((value,key)=>{
 
-  }
+let name = '';
+let title ='';
+value.forEach(element => {
+    name = element.topicTypeName;
+    title = element.title;
+  });
+const test={key,name};
+return test;
+}).value();
+}
 
   selectedTopicType(event){
+    this.tittles=[];
     this.topicTypeID=event.target.value;
     console.log(this.topicTypeID);
-    // this.groupTopicType(event.target.value);
-    this.tittles.push(this.topicByLecturer.find(e =>e.topicTypeID === this.topicTypeID));
-    console.log(this.tittles);
+    let title;
+    this.tittles.push(this.allTopic[this.topicTypeID]);
   }
   selectedTittles(ev){
     console.log(ev.target.value);
@@ -132,13 +150,51 @@ console.log(result);
            text: 'Okay',
            id: 'confirm-button',
            handler: () => {
-           //  console.log('Confirm Okay');
-            //  this.nav.navigateBack('login');
-            //  localStorage.setItem('userGroupID','');
            }
          }
        ]
       })
       .then(alertEl => alertEl.present());
+  }
+
+  sendMail(){
+    this.userEmail=localStorage.getItem('email');
+    this.userProfileName=localStorage.getItem('profileName');
+    this.userAccountId=localStorage.getItem('accountID');
+    const formData =new FormData();
+    formData.append('accountID', this.userAccountId);
+    formData.append('profileName', this.userProfileName);
+    formData.append('email', this.userEmail);
+    this.apiService.postData('https://fypmanagementbackend.in/SendMailNotification/applicationMail.php',formData).subscribe((res: any)=>{
+    console.log(res);
+    if(res.err === false){
+      this.presentAlertConfirm('Application is send');
+    }else{
+      this.presentAlertConfirm(res.message);
+    }
+    });
+
+  }
+
+  async presentAlertConfirm(msg) {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Message',
+      message: msg,
+      mode:'ios',
+      backdropDismiss:false,
+      buttons: [
+         {
+          text: 'Okay',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.nav.navigateForward('/student');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

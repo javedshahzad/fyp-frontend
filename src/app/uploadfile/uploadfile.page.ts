@@ -11,10 +11,11 @@ import { ApiService } from '../services/api.service';
 export class UploadfilePage implements OnInit {
   assessmentID: any;
   file: any;
-  Assessmentdata: any;
+  assessmentData: any;
   userEmai: string;
   userProfileName: any;
   userAccountId: string;
+  userEmail;
 
   constructor(
     private router: Router,
@@ -26,8 +27,8 @@ export class UploadfilePage implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any)=>{
       this.assessmentID=res.assessmentID;
       console.log(this.assessmentID);
-      console.log(res.data,"Assessment");
-      this.Assessmentdata=res.data;
+      console.log(res.data,'Assessment');
+      this.assessmentData=res.data;
     });
   }
 
@@ -47,7 +48,7 @@ export class UploadfilePage implements OnInit {
     this.apiService.postData('https://fypmanagementbackend.in/UploadApi/uploads.php',formData).subscribe((res: any)=>{
     console.log(res);
     if(res.err === false){
-      this.SendMail();
+      this.sendMail();
     }else{
       //this.presentAlertConfirm(res.message);
     }
@@ -76,19 +77,19 @@ export class UploadfilePage implements OnInit {
     await alert.present();
   }
 
-  SendMail(){
-    this.userEmai=localStorage.getItem('email');
+  sendMail(){
+    this.userEmail=localStorage.getItem('email');
     this.userProfileName=localStorage.getItem('profileName');
     this.userAccountId=localStorage.getItem('accountID');
     const formData =new FormData();
     formData.append('assessmentID', this.assessmentID);
-    formData.append('assessmentName', this.Assessmentdata.assessmentName);
-    formData.append('lectID', this.Assessmentdata.lectID);
-    formData.append('title', this.Assessmentdata.title);
+    formData.append('assessmentName', this.assessmentData.assessmentName);
+    formData.append('lectID', this.assessmentData.lectID);
+    formData.append('title', this.assessmentData.title);
     formData.append('accountID', this.userAccountId);
     formData.append('profileName', this.userProfileName);
-    formData.append('email', this.userEmai);
-    formData.append('projectID', this.Assessmentdata.projectID);
+    formData.append('email', this.userEmail);
+    formData.append('projectID', this.assessmentData.projectID);
     this.apiService.postData('https://fypmanagementbackend.in/SendMailNotification/mail.php',formData).subscribe((res: any)=>{
     console.log(res);
     if(res.err === false){

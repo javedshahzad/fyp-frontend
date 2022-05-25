@@ -8,12 +8,12 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./changepassword.page.scss'],
 })
 export class ChangepasswordPage implements OnInit {
-  passcode:any='';
-  userName:any='';
+  passcode: any='';
+  userName: any='';
   accountID: string;
   constructor(
-    private apiService:ApiService,
-    private alertController:AlertController
+    private apiService: ApiService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {

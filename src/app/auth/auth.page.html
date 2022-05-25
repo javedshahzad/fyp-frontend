@@ -19,6 +19,7 @@
                 required
                 [(ngModel)]="user.userName"
                 #emailCtrl="ngModel"
+                placeholder="Matric No./username/email"
               ></ion-input>
             </ion-item>
             <ion-item>
@@ -50,6 +51,7 @@
             type="submit"
             color="primary"
             expand="block"
+            [disabled]="!f.valid"
           >
             Login
           </ion-button>

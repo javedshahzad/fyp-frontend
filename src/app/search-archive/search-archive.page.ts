@@ -20,6 +20,7 @@ export class SearchArchivePage implements OnInit {
   }
 
   download(path){
+    console.log(path);
     window.open(path,'_blank');
   }
 
@@ -38,30 +39,30 @@ export class SearchArchivePage implements OnInit {
         this.getArchiveData();
       }
       const str=this.filterTerm;
-    const arr = str.split(" ");
+    const arr = str.split(' ');
     //loop through each element of the array and capitalize the first letter.
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
 
     }
-    //Join all the elements of the array back into a string 
-    //using a blankspace as a separator 
-    const str2 = arr.join(" ");
+    //Join all the elements of the array back into a string
+    //using a blankspace as a separator
+    const str2 = arr.join(' ');
     console.log(str2);
-    let arrdata=this.archiveData;
+    const arrdata=this.archiveData;
     //let x = arrdata.filter((a)=>{if(a.title==str2){return a}});
-    let x =arrdata.filter((a)=>a.yearFYP.toUpperCase().includes(str.toUpperCase()) || a.topicTypeName.toUpperCase().includes(str.toUpperCase()) || a.title.toUpperCase().includes(str.toUpperCase()));
+    const x =arrdata.filter((a)=>a.yearFYP.toUpperCase().includes(str.toUpperCase()) || a.topicTypeName.toUpperCase().includes(str.toUpperCase()) || a.title.toUpperCase().includes(str.toUpperCase()));
     console.log(x);
     this.searchArchive=x;
-    if(this.searchArchive.length != 0){
+    if(this.searchArchive.length !== 0){
       this.archiveData=this.searchArchive;
     }else{
       this.archiveData=x;
-      this.apiService.showtoast("Data not Found!");   
+      this.apiService.showtoast('Data not Found!');
     }
     console.log(this.archiveData);
     }else{
-      this.apiService.showtoast("Type to search");   
+      this.getArchiveData();
     }
 
   }

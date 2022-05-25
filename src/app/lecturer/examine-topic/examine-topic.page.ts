@@ -29,6 +29,8 @@ getData(){
     console.log(res);
     if(res.err === false){
       this.allProject=res.data;
+    }else{
+      this.showAlert('No Examine Project Found');
     }
   });
 }
@@ -76,7 +78,7 @@ showEnrolAlert(projectID,studID){
 showAlert(message: string) {
   this.alertCtrl
     .create({
-      header: 'Created success',
+      header: 'Alert Message',
       message,
       backdropDismiss:false,
       buttons: [

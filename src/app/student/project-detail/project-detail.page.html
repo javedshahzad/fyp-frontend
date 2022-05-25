@@ -19,35 +19,18 @@
                 <ion-select-option value={{selectLecturer.accountID}} *ngFor="let selectLecturer of lecturers">{{selectLecturer.profileName}}</ion-select-option>
               </ion-select>
             </ion-item>
-            <!-- <ion-item>
-              <ion-label position="floating">Co-supervisor</ion-label>
-              <ion-select name="cosupervisor">
-                <ion-select-option></ion-select-option>
-              </ion-select>
-            </ion-item> -->
             <ion-item>
               <ion-label position="floating">Topic Type</ion-label>
               <ion-select required ngModel name="topicTypeID" (ionChange)="selectedTopicType($event)">
-                <ion-select-option value={{selectTopicType.topicTypeID}} *ngFor="let selectTopicType of topicByLecturer">{{selectTopicType.topicTypeName}}</ion-select-option>
+                <ion-select-option value={{selectTopicType.key}} *ngFor="let selectTopicType of topicByLecturer">{{selectTopicType.name}}</ion-select-option>
               </ion-select>
             </ion-item>
-
             <ion-item>
               <ion-label position="floating">Title</ion-label>
               <ion-select required ngModel name="title" (ionChange)="selectedTittles($event)">
-                <ion-select-option value="{{selectTopicType.title}}" *ngFor="let selectTopicType of tittles">{{selectTopicType.title}}</ion-select-option>
+                <ion-select-option value="{{selectTitle.title}}" *ngFor="let selectTitle of tittles[0]">{{selectTitle.title}}</ion-select-option>
               </ion-select>
             </ion-item>
-
-            <!-- <ion-item>
-              <ion-label position="floating">Title</ion-label>
-              <ion-input
-                ngModel
-                name="title"
-                required
-                #titleCtrl="ngModel"
-              ></ion-input>
-            </ion-item> -->
             <ion-item>
               <ion-label position="floating">Basic Skills</ion-label>
               <ion-textarea
@@ -99,7 +82,8 @@
       </ion-row>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
-          <ion-button [disabled]="isDisble"
+          <ion-button
+           [disabled]="isDisble"
             type="submit"
             color="primary"
             expand="block"

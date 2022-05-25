@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class ExaminerPage implements OnInit {
   constructor(
     private apiService: ApiService,
     public navCtrl: NavController,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -36,6 +37,7 @@ export class ExaminerPage implements OnInit {
         this.allProjectData=res.data;
       }else{
         this.allProjectData=[];
+        this.showAlert(res.message);
       }
     });
   }
@@ -43,6 +45,27 @@ export class ExaminerPage implements OnInit {
   changeCourse(value){
     console.log(this.courseID);
     this.getExamineData();
+  }
+
+  showAlert(message: string) {
+    this.alertCtrl
+      .create({
+        header: 'Alert Message',
+        message,
+        backdropDismiss:false,
+        buttons: [
+          {
+           text: 'Okay',
+           id: 'confirm-button',
+           handler: () => {
+           //  console.log('Confirm Okay');
+            //  this.nav.navigateBack('login');
+            //  localStorage.setItem('userGroupID','');
+           }
+         }
+       ]
+      })
+      .then(alertEl => alertEl.present());
   }
 
   async openDetails(item) {

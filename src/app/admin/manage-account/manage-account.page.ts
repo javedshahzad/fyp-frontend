@@ -25,7 +25,7 @@ export class ManageAccountPage implements OnInit {
   delete(id){
     this.showDeleteAlert(id);
   }
-  showDeleteAlert(evaluationID){
+  showDeleteAlert(accountID){
     this.alertCtrl.create({
       header:'Are you Sure to Delete?',
       backdropDismiss:false,
@@ -35,8 +35,8 @@ export class ManageAccountPage implements OnInit {
          id: 'confirm-button',
          handler: () => {
           const formData =new FormData();
-          formData.append('evaluationID', evaluationID);
-          this.apiService.postData('https://fypmanagementbackend.in/EvaluationAPI/delete.php',
+          formData.append('accountID', accountID);
+          this.apiService.postData('https://fypmanagementbackend.in/AccountAPI/delete.php',
           formData).subscribe((res: any)=>{
             console.log(res);
               if(res.err === false){

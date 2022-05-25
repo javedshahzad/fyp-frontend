@@ -12,6 +12,8 @@ export class AddEvaluationPage implements OnInit {
   evDescription;
   sortNum;
   courseID;
+  evData;
+  evaluationID;
 
   constructor(
     private apiService: ApiService,
@@ -20,7 +22,12 @@ export class AddEvaluationPage implements OnInit {
     public navCtrl: NavController,
   ) {
     this.activeRoute.queryParams.subscribe((res: any)=>{
-      this.courseID = res.courseID;
+      this.evData = res.review;
+      console.log(this.evData);
+      this.evaluationID = this.evData.evaluationID;
+      this.name = this.evData.Name;
+      this.evDescription = this.evData.evDescription;
+      this.sortNum = this.evData.sortNum;
     });
   }
 
@@ -28,12 +35,13 @@ export class AddEvaluationPage implements OnInit {
   }
   onSubmit() {
     const formData =new FormData();
+    formData.append('evaluationID', this.evaluationID);
     formData.append('Name', this.name);
     formData.append('evDescription', this.evDescription);
     formData.append('courseID', this.courseID);
     formData.append('sortNum', this.sortNum);
 
-    this.apiService.postData('https://fypmanagementbackend.in/EvaluationAPI/create.php',formData).subscribe((res: any)=>{
+    this.apiService.postData('https://fypmanagementbackend.in/EvaluationAPI/update.php',formData).subscribe((res: any)=>{
       console.log(res);
       if(res.err === false){
         this.showAlert(res.message);

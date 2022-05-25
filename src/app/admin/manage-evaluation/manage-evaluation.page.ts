@@ -86,32 +86,21 @@ export class ManageEvaluationPage implements OnInit {
       });
   }
 
-  // getReview(assID){
-  //   const formData =new FormData();
-  //   formData.append('assessmentID', assID);
-  //   this.apiService.getDataByID('https://fypmanagementbackend.in/AssessmentReviewAPI/read.php', formData)
-  //   .subscribe((res: any) => {
-  //     console.log(res);
-  //     if(res.err === false){
-  //       this.allAssessmentReviewData=res.data;
-  //     }else{
-  //       this.showAlert(res.message);
-  //     }
-  //   });
-  // }
-
-
-  addEvaluation(){
+  update(data){
     if(this.courseID){
-      this.nav.navigateForward('admin/manage-evaluation/add-evaluation',{queryParams:{courseID: this.courseID}});
+      this.nav.navigateForward('admin/manage-evaluation/add-evaluation',{queryParams:{review: data}});
     }else{
       this.showAlert('Please Select Course first');
     }
   }
 
-  getFile(){
-
-  }
+  // addEvaluation(){
+  //   if(this.courseID){
+  //     this.nav.navigateForward('admin/manage-evaluation/add-evaluation',{queryParams:{courseID: this.courseID}});
+  //   }else{
+  //     this.showAlert('Please Select Course first');
+  //   }
+  // }
 
   private showAlert(message: string) {
     this.alertCtrl

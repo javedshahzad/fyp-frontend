@@ -14,12 +14,21 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+// import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, CommonModule,
-    HttpClientModule, FormsModule, IonicModule.forRoot(), AppRoutingModule],
+    HttpClientModule, FormsModule, IonicModule.forRoot(), AppRoutingModule,
+//   ServiceWorkerModule.register('ngsw-worker.js', {
+//   enabled: environment.production,
+//   // Register the ServiceWorker as soon as the application is stable
+//   // or after 30 seconds (whichever comes first).
+//   registrationStrategy: 'registerWhenStable:30000'
+// })
+],
   providers: [
     Platform,
     StatusBar,

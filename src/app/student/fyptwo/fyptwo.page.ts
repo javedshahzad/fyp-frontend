@@ -17,6 +17,7 @@ export class FyptwoPage implements OnInit {
   assessmentName ='';
   file = '';
   filePath: any;
+  assesmentData: any;
 
 
   constructor(
@@ -52,6 +53,7 @@ export class FyptwoPage implements OnInit {
   selectedAssessment(item){
     this.getReview(item.assessmentID);
     console.log(item);
+    this.assesmentData=item;
     this.assessmentName = item.assessmentName;
     this.file = item.fileName;
     this.assessmentID=item.assessmentID;
@@ -62,7 +64,9 @@ export class FyptwoPage implements OnInit {
   // this.suApproval = '0';
   // this.exApproval = '0';
   }
-
+  openfile(){
+    window.open(this.filePath,'_blank');
+  }
   getReview(assID){
     const formData =new FormData();
     formData.append('assessmentID', assID);
@@ -80,7 +84,7 @@ export class FyptwoPage implements OnInit {
 
   uploadFile(){
     if(this.assessmentID){
-      this.nav.navigateForward('uploadfile',{queryParams:{assessmentID: this.assessmentID}});
+      this.nav.navigateForward('uploadfile',{queryParams:{assessmentID: this.assessmentID,data:this.assesmentData}});
     }else{
       this.showAlert('Please select project first');
     }

@@ -1,6 +1,6 @@
 import {Component, OnInit, Type} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {LoadingController, AlertController} from '@ionic/angular';
+import {LoadingController, AlertController, MenuController} from '@ionic/angular';
 
 import {RegisterService} from './register.service';
 import {User} from '../model/user.model';
@@ -14,7 +14,6 @@ import {Major} from '../model/major.model';
 })
 export class RegisterPage implements OnInit {
   isLoading = false;
-  isLogin = true;
   majors;
   major;
   registerData = [];
@@ -24,42 +23,27 @@ export class RegisterPage implements OnInit {
   constructor(
     private registerService: RegisterService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    public menuCtrl: MenuController) {
   }
 
   ngOnInit() {
-    // this.major = this.registerService.getMajor().subscribe((data:Major)=> this.majors{
-    //   majorID: data.majorID,
-    //   majorName: data.majorName
-    // });
-    // console.log('major',this.major);
     this.registerService.getMajor()
       .subscribe(data => {
         this.majors = data;
         console.log(this.majors);
       }, error => console.log(error));
+  }
 
-    //     this.userForm = formBuilder.group({
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+  ionViewDidEnter(): void {
+    this.menuCtrl.enable(false);
+  }
 
-    //       email: [''],
-    //       password: [''],
-    //       confirmPassword: ['', Validators.required],
-    //     }, {validator: this.matchingPasswords('passcode', 're_passcode')});
-
-
-    // matchingPasswords(passcode: string, re_passcode: string) {
-    //     // TODO maybe use this https://github.com/yuyang041060120/ng2-validation#notequalto-1
-    //     return (form: NgForm): {[key: string]: any} => {
-    //       let password = form.value.passcode;
-    //       let confirmPassword = form.value.re_passcode;
-
-    //       if (password.value !== confirmPassword.value) {
-    //         return {
-    //           mismatchedPasswords: true
-    //         };
-    //       }
-    //     }
-    //   }
+  ionViewDidLeave(): void {
+    this.menuCtrl.enable(true);
   }
 
   newUser(): void {
@@ -86,7 +70,8 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    form.value.userGroupID = 2;
+    if(form.value.passcode === form.value.re_passcode){
+      form.value.userGroupID = 2;
     form.value.studLimit = 0;
     form.value.majorID = this.user.majorID;
     console.log(form.value);
@@ -94,6 +79,10 @@ export class RegisterPage implements OnInit {
     this.user.userGroupID = 2;
     this.user.studLimit = 0;
     this.save(form.value);
+    }else{
+      this.showAlert('Password must match with re-enter password');
+    }
+    
   }
 
   private showAlert(message: string, head = 'Registration failed') {

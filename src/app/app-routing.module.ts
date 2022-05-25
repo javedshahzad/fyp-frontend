@@ -8,16 +8,6 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule) },
   { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)},
   { path: 'admin', loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminPageRoutingModule)},
-  // {
-  //   path: 'places',
-  //   loadChildren: () => import('./places/places.module').then(m => m.PlacesPageModule),
-  //   canLoad: [AuthGuard]
-  // },
-  // {
-  //   path: 'bookings',
-  //   loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsPageModule),
-  //   canLoad: [AuthGuard]
-  // },
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)

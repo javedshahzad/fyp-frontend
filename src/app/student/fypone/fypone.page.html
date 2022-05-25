@@ -17,15 +17,21 @@
       </ion-tab-button>
     </ion-tab-bar>
   </div>
-  <ion-grid>
+  <ion-list>
     <ion-label>{{this.assessmentName}}</ion-label>
     <ion-item>
       <p>FileName : {{file}}</p>
       <ion-button slot="end" size="small" (click)="openfile()" *ngIf="file">Open</ion-button>
     </ion-item>
     <ion-item *ngFor="let review of allAssessmentReviewData">
-      <ion-label position="floating">{{review.roleName}} Comment</ion-label>
-      <p>{{review.lectComment}}</p>
+<ion-grid>
+        <ion-row>
+          <ion-label position="floating">{{review.roleName}} Comment</ion-label>
+        </ion-row>
+        <ion-row>
+          <p>{{review.lectComment}}</p>
+        </ion-row>
+</ion-grid>
     </ion-item>
     <ion-item *ngFor="let approval of allAssessmentReviewData">
       <ion-label>
@@ -38,7 +44,7 @@
         </p>
       </ion-label>
     </ion-item>
-  </ion-grid>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="uploadFile()">
       <ion-icon name="add"></ion-icon>

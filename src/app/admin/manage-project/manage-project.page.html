@@ -7,5 +7,36 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <div>
+    <ion-tab-bar  color="medium" class="segment-card">
+      <ion-tab-button class="segment-item" (click)="waitingApprove()">
+        <ion-label class="segment-lable">
+          Waiting Approve
+        </ion-label>
+      </ion-tab-button>
+      <ion-tab-button class="segment-item" (click)="noExaminer()">
+        <ion-label class="segment-lable">
+          No Examiner
+        </ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </div>
 
+  <ion-list>
+    <ion-item *ngFor="let item of allProject" >
+      <ion-label>
+        <h2>Title</h2>
+        <h2>Supervisor</h2>
+        <h2>{{condition}}</h2>
+      </ion-label>
+      <ion-label >
+        <p>{{item.title}}</p>
+        <p>{{item.profileName}}</p>
+        <p>
+          <span *ngIf="isHave ===0" style="color: red;">No</span>
+          <span *ngIf="isHave ===1" style="color: green;">Yes</span>
+        </p>
+      </ion-label>
+    </ion-item>
+</ion-list>
 </ion-content>

@@ -14,7 +14,7 @@ export class ProfilePage implements OnInit {
   userName;
 
 
-  constructor( private authProvider: AuthProvider,private nav:NavController) { }
+  constructor( private authProvider: AuthProvider,private nav: NavController) { }
 
   ngOnInit() {
     this.profileName = localStorage.getItem('profileName');

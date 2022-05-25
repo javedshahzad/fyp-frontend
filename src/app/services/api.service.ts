@@ -10,7 +10,7 @@ export class ApiService {
   public isupdateLogin = new BehaviorSubject(true);
   constructor(
     public http: HttpClient,
-    private toastController:ToastController
+    private toastController: ToastController
   ) { }
 
   postData(url,data){
